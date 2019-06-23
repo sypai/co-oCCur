@@ -43,11 +43,11 @@ set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
 ## CCAligner for audio processing
 include_directories(libs/lib_ext/CCAligner)
 set(ReadAudio
-        libs/lib_ext/CCAligner/src/lib_ccaligner/logger.h
-        libs/lib_ext/CCAligner/src/lib_ccaligner/commons.h
-        libs/lib_ext/CCAligner/src/lib_ccaligner/params.h
-        libs/lib_ext/CCAligner/src/lib_ccaligner/read_wav_file.h
-        libs/lib_ext/CCAligner/src/lib_ccaligner/read_wav_file.cpp
+        libs/lib_ext/CCAligner/logger.h
+        libs/lib_ext/CCAligner/commons.h
+        libs/lib_ext/CCAligner/params.h
+        libs/lib_ext/CCAligner/read_wav_file.h
+        libs/lib_ext/CCAligner/read_wav_file.cpp
         )
 add_library(ccaligner ${ReadAudio})
 set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/CCAligner)
@@ -59,10 +59,10 @@ set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/CCAligner)
 include_directories(src/ src/utils/)
 
 set(SourceFiles
-        src/utils/base64strings.h
-        src/utils/base64strings.cpp
-        src/utils/vad.h
-        src/utils/vad.cpp
+        src/utils/base64Strings.h
+        src/utils/base64Strings.cpp
+        src/utils/audioSegmentation.h
+        src/utils/audioSegmentation.cpp
         src/toolA.cpp
         src/toolA.h
         src/toolB.cpp
@@ -72,4 +72,4 @@ set(SourceFiles
         )
 
 add_executable(co_oCCur ${SourceFiles})
-target_link_libraries(co_oCCur ccaligner webrtc ${EXTRA_FLAGS})
+target_link_libraries(co_oCCur webrtc ccaligner ${EXTRA_FLAGS})
