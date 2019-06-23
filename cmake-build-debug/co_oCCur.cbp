@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="co_oCCur"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="co_oCCur">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/co_oCCur" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 co_oCCur"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="co_oCCur/fast">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/co_oCCur" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 co_oCCur/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="webrtc">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/libwebrtc.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 webrtc"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="webrtc/fast">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/libwebrtc.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 webrtc/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ccaligner">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/libccaligner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 ccaligner"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ccaligner/fast">
+				<Option output="/home/sypai/co-oCCur/cmake-build-debug/libccaligner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sypai/co-oCCur/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_co-oCCur/SiftSRT"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/webrtc"/>
+					<Add directory="/home/sypai/co-oCCur/libs/lib_ext/CCAligner"/>
+					<Add directory="/home/sypai/co-oCCur/src"/>
+					<Add directory="/home/sypai/co-oCCur/src/utils"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 ccaligner/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/sypai/co-oCCur/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/commons.cpp">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/commons.h">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/logger.cpp">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/logger.h">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/params.cpp">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/params.h">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/read_wav_file.cpp">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/CCAligner/read_wav_file.h">
+			<Option target="ccaligner"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/cross_correlation.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/division_operations.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/downsample_fast.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/energy.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/get_scaling_square.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/min_max_operations.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_48khz.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_by_2_internal.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_by_2_internal.h">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_fractional.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/spl_init.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/spl_inl.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/vector_scaling_operations.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_core.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_core.h">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_filterbank.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_filterbank.h">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_gmm.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_gmm.h">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_sp.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_sp.h">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/libs/lib_ext/webrtc/webrtc/common_audio/vad/webrtc_vad.c">
+			<Option target="webrtc"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/co_occur.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/co_occur.h">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/tools/toolA.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/tools/toolA.h">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/tools/toolB.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/tools/toolB.h">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/utils/audioSegmentation.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/utils/audioSegmentation.h">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/utils/base64Strings.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/utils/base64Strings.h">
+			<Option target="co_oCCur"/>
+		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
