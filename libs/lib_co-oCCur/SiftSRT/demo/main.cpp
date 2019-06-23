@@ -67,6 +67,18 @@ int main(int argc, char* argv[]) {
     edit->EnrichSRT("temp.srt", fingerprints, timestamps);
     edit->AdjustSRT("example.srt", 2000, true);
 
+    co_oCCurParser *parse;
+    parse = new co_oCCurParser(sub);
+    auto substring =parse->SpeechActivityDetection(10);
+
+    int i=0;
+    for (int j=0; j < sub.at(sub.size()-1)->getEndTime();j+=10)
+    {
+        std::cout << j << "ms : " << substring.at(i) << std::endl;
+        i+=1;
+    }
+
+    return 0;
 
 
     return 0;

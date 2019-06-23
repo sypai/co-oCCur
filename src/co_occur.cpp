@@ -43,10 +43,9 @@ void co_oCCur::co_occur::init()
         co_oCCur::ToolA* handle;
         handle = new co_oCCur::ToolA(m_OriginalAudioFileName, m_ModifiedAudioFileName, m_OriginalSRTFileName);
 
-        handle->generateFingerprints();
-        handle->align();
+        handle->adjust();
 
-//        delete handle;
+        delete handle;
     }
 
     else if (m_ToolName == "B")
@@ -55,6 +54,8 @@ void co_oCCur::co_occur::init()
 
         co_oCCur::ToolB* handle;
         handle = new co_oCCur::ToolB(m_ModifiedAudioFileName, m_OriginalSRTFileName);
+
+        handle->adjust();
 
         delete handle;
     }

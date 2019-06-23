@@ -77,11 +77,11 @@ void co_oCCur::ToolA::generateFingerprints()
 {
     std::cout << "\nProcessing Original Audio" << std::endl;
     WaveFileData* originalAudio = new WaveFileData(m_OriginalAudioFile);
-    originalAudio->read();
+//    originalAudio->read();
 
     std::cout << "\nProcessing Modified Audio" << std::endl;
     WaveFileData* modifiedAudio = new WaveFileData(m_ModifiedAudioFile);
-    modifiedAudio->read();
+//    modifiedAudio->read();
 
     DEBUG << "\n";
     std::cout << "Generating Audio Fingerprint annotations" << std::endl;
@@ -154,6 +154,7 @@ void co_oCCur::ToolA::generateFingerprints()
 
 long int co_oCCur::ToolA::seekAndCompare()
 {
+    generateFingerprints();
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
     //TODO: This function will compare the fingerprints
@@ -164,7 +165,7 @@ long int co_oCCur::ToolA::seekAndCompare()
     return delta;
 }
 
-void co_oCCur::ToolA::align()
+void co_oCCur::ToolA::adjust()
 {
     auto delta = seekAndCompare();
 
@@ -183,6 +184,7 @@ void co_oCCur::ToolA::align()
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);
-    edit->AdjustSRT(m_OriginalAudioFile, delta, true);
+
+    edit->AdjustSRT(m_OriginalSubtitleFile, delta, true);
 }
 

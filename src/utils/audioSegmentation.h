@@ -14,6 +14,7 @@
 #include "../../libs/lib_ext/webrtc/webrtc/common_audio/vad/include/webrtc_vad.h"
 #include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 
+std::vector<char> runVAD(std::vector<int16_t>& samples, int SegmentWindow);
 
 #endif //CO_OCCUR_VAD_H
 

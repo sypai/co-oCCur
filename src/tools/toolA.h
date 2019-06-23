@@ -35,7 +35,7 @@ namespace co_oCCur {
         ToolA(std::string OriginalAudioFile, std::string ModifiedAudioFile, std::string OriginalSubtitleFile);
         void generateFingerprints();
         void AFInserter();
-        void align();
+        void adjust();
         ~ToolA();
 
     private:
