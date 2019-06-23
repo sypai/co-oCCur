@@ -19,23 +19,24 @@ include_directories(libs/lib_co-oCCur/SiftSRT)
 ## webrtc for VAD
 include_directories(libs/lib_ext/webrtc)
 set(VADFiles
-        libs/lib_ext/webrtc/common_audio/signal_processing/cross_correlation.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/division_operations.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/downsample_fast.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/energy.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/get_scaling_square.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/min_max_operations.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/resample_48khz.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/resample_by_2_internal.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/resample_fractional.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/spl_init.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/spl_inl.c
-        libs/lib_ext/webrtc/common_audio/signal_processing/vector_scaling_operations.c
-        libs/lib_ext/webrtc/common_audio/vad/vad_core.c
-        libs/lib_ext/webrtc/common_audio/vad/vad_filterbank.c
-        libs/lib_ext/webrtc/common_audio/vad/vad_gmm.c
-        libs/lib_ext/webrtc/common_audio/vad/vad_sp.c
-        libs/lib_ext/webrtc/common_audio/vad/webrtc_vad.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/cross_correlation.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/division_operations.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/downsample_fast.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/energy.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/get_scaling_square.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/min_max_operations.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_48khz.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_by_2_internal.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/resample_fractional.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/spl_init.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/spl_inl.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/vector_scaling_operations.c
+        libs/lib_ext/webrtc/webrtc/common_audio/signal_processing/include/
+        libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_core.c
+        libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_filterbank.c
+        libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_gmm.c
+        libs/lib_ext/webrtc/webrtc/common_audio/vad/vad_sp.c
+        libs/lib_ext/webrtc/webrtc/common_audio/vad/webrtc_vad.c
         )
 add_library(webrtc ${VADFiles})
 set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
@@ -44,8 +45,11 @@ set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
 include_directories(libs/lib_ext/CCAligner)
 set(ReadAudio
         libs/lib_ext/CCAligner/logger.h
+        libs/lib_ext/CCAligner/logger.cpp
         libs/lib_ext/CCAligner/commons.h
+        libs/lib_ext/CCAligner/commons.cpp
         libs/lib_ext/CCAligner/params.h
+        libs/lib_ext/CCAligner/params.cpp
         libs/lib_ext/CCAligner/read_wav_file.h
         libs/lib_ext/CCAligner/read_wav_file.cpp
         )
@@ -63,12 +67,12 @@ set(SourceFiles
         src/utils/base64Strings.cpp
         src/utils/audioSegmentation.h
         src/utils/audioSegmentation.cpp
-        src/toolA.cpp
-        src/toolA.h
-        src/toolB.cpp
-        src/toolB.h
-        src/co-occur.h
-        src/co-occur.cpp
+        src/tools/toolA.cpp
+        src/tools/toolA.h
+        src/tools/toolB.cpp
+        src/tools/toolB.h
+        src/co_occur.h
+        src/co_occur.cpp
         )
 
 add_executable(co_oCCur ${SourceFiles})

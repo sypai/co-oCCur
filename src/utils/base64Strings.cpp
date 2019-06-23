@@ -4,7 +4,7 @@
 * Github: https://github.com/sypai
 */
 
-#include "base64strings.h"
+#include "base64Strings.h"
 #include <cassert>
 
 namespace co_oCCur {

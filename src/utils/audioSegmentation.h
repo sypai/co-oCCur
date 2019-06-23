@@ -11,7 +11,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include "../../libs/lib_ext/webrtc/common_audio/vad/include/webrtc_vad.h"
+#include "../../libs/lib_ext/webrtc/webrtc/common_audio/vad/include/webrtc_vad.h"
 #include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 
 

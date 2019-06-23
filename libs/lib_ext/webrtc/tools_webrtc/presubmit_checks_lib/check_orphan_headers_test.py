@@ -11,7 +11,6 @@ import os
 import sys
 import unittest
 
-#pylint: disable=relative-import
 import check_orphan_headers
 
 
@@ -93,10 +92,6 @@ class GetHeadersInBuildGnFileSourcesTest(unittest.TestCase):
       deps = [":bar"]
     }
     rtc_static_library("bar") {
-      # Public headers should also be included.
-      public = [
-        "public_foo.h",
-      ]
       sources = [
         "bar.h",
         "bar.cc",
@@ -112,7 +107,6 @@ class GetHeadersInBuildGnFileSourcesTest(unittest.TestCase):
       set([
         _GetPath('a', 'b', 'foo.h'),
         _GetPath('a', 'b', 'bar.h'),
-        _GetPath('a', 'b', 'public_foo.h'),
         _GetPath('a', 'b', 'baz', 'foo.h'),
       ]),
       check_orphan_headers.GetHeadersInBuildGnFileSources(file_content,

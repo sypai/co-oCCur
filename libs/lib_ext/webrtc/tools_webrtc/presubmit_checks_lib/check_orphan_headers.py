@@ -20,7 +20,7 @@ TARGET_RE = re.compile(r'(?P<indent>\s*)\w+\("(?P<target_name>\w+)"\) {'
 
 # SOURCES_RE matches a block of sources inside a GN target.
 SOURCES_RE = re.compile(
-    r'(sources|public|common_objc_headers) \+?= \[(?P<sources>.*?)\]',
+    r'(sources|common_objc_headers) \+?= \[(?P<sources>.*?)\]',
     re.MULTILINE | re.DOTALL)
 
 SOURCE_FILE_RE = re.compile(r'.*\"(?P<source_file>.*)\"')
@@ -114,6 +114,7 @@ def GetHeadersInBuildGnFileSources(file_content, target_abs_path):
         source_file = source_file_match.group('source_file')
         if source_file.endswith('.h'):
           source_file_tokens = string.split(source_file, '/')
+          # pylint: disable=star-args
           headers_in_sources.add(os.path.join(target_abs_path,
                                               *source_file_tokens))
   return headers_in_sources
