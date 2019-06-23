@@ -177,18 +177,22 @@ protected:
 
 // ===============================================================
 
-class co_oCCurParser : public SubtitleItem, public SubtitleParser
+
+class co_oCCurParser : public SubtitleItem
 {
 private:
     int m_SegmentWindow;
+    std::vector<SubtitleItem*> m_SubtitleItems;
 
 public:
-
     std::vector<std::string> getFingerprints();
     std::vector<long int> getFPTimestamps();
-    co_oCCurParser();
+    std::vector<char> SpeechActivityDetection(int SegmentWindow);
 
+    explicit co_oCCurParser(std::vector<SubtitleItem*> sub);
+    ~co_oCCurParser();
 };
+
 
 // ===============================================================
 
@@ -930,6 +934,102 @@ inline co_oCCurEditor::~co_oCCurEditor()
 
 // ===============================================================
 // 4. co_oCCurParser
+
+inline co_oCCurParser::co_oCCurParser(std::vector<SubtitleItem*> sub)
+{
+    m_SubtitleItems = std::move(sub);
+}
+
+inline std::vector<std::string> co_oCCurParser::getFingerprints()
+{
+    return m_Fingerprints;
+}
+
+inline std::vector<long int> co_oCCurParser::getFPTimestamps()
+{
+    return m_FPTimestamps;
+}
+
+inline std::vector<char> co_oCCurParser::SpeechActivityDetection(int SegmentWindow)
+{
+    m_SegmentWindow = SegmentWindow;
+    std::vector<char> subtitleString;
+    long int previousEndTime = 0;
+    int first_check = 0;
+
+    for (SubtitleItem* element : m_SubtitleItems)
+    {
+        int subNo = element -> getSubtitleNumber();
+        long int startTime = element->getStartTime();
+        long int endTime = element->getEndTime();
+
+        long int UL = 0;
+        long int LL = 0;
+        int frame_size = 0;
+        int window_count = 0;
+
+        if (first_check == 0)
+        {
+            LL = 0;
+            UL = startTime;
+            frame_size = UL - LL;
+
+            if (frame_size % SegmentWindow == 0)
+                window_count = frame_size / SegmentWindow;
+            else
+                window_count = frame_size / SegmentWindow + 1;
+
+            for ( int i = 0; i < window_count; i++)
+            {
+                subtitleString.emplace_back('0');
+            }
+        }
+
+        if (subNo > 1)
+        {
+            LL = previousEndTime;
+            UL = startTime;
+            frame_size = UL - LL;
+
+            if (frame_size % SegmentWindow == 0)
+                window_count = frame_size / SegmentWindow;
+            else
+                window_count = frame_size / SegmentWindow + 1;
+
+            for ( int i = 0; i < window_count; i++)
+            {
+                subtitleString.emplace_back('0');
+            }
+        }
+
+        if (first_check == 0 || subNo > 0)
+        {
+            LL = startTime;
+            UL = endTime;
+            frame_size = UL - LL;
+
+            if (frame_size % SegmentWindow == 0)
+                window_count = frame_size / SegmentWindow;
+            else
+                window_count = frame_size / SegmentWindow + 1;
+
+            for (int i = 0; i < window_count; i++)
+            {
+                subtitleString.emplace_back('1');
+            }
+        }
+
+        previousEndTime = endTime;
+        first_check++;
+    }
+
+    return subtitleString;
+}
+
+inline co_oCCurParser::~co_oCCurParser()
+{
+
+}
 
 // ===============================================================
 // 5. SubtitleWord
