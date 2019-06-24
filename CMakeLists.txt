@@ -73,7 +73,8 @@ set(SourceFiles
         src/tools/toolB.h
         src/co_occur.h
         src/co_occur.cpp
-        src/main.cpp)
+        src/main.cpp
+        )
 
 add_executable(co_oCCur ${SourceFiles})
 target_link_libraries(co_oCCur webrtc ccaligner ${EXTRA_FLAGS})
