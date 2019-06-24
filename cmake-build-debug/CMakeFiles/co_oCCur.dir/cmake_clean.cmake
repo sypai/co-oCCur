@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/co_oCCur.dir/src/tools/toolA.cpp.o"
   "CMakeFiles/co_oCCur.dir/src/tools/toolB.cpp.o"
   "CMakeFiles/co_oCCur.dir/src/co_occur.cpp.o"
+  "CMakeFiles/co_oCCur.dir/src/main.cpp.o"
   "co_oCCur.pdb"
   "co_oCCur"
 )

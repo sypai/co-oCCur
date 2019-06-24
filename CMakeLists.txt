@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(co_oCCur)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -73,7 +73,7 @@ set(SourceFiles
         src/tools/toolB.h
         src/co_occur.h
         src/co_occur.cpp
-        )
+        src/main.cpp)
 
 add_executable(co_oCCur ${SourceFiles})
 target_link_libraries(co_oCCur webrtc ccaligner ${EXTRA_FLAGS})

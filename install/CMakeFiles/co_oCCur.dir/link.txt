@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/co_oCCur.dir/src/utils/base64Strings.cpp.o CMakeFiles/co_oCCur.dir/src/utils/audioSegmentation.cpp.o CMakeFiles/co_oCCur.dir/src/tools/toolA.cpp.o CMakeFiles/co_oCCur.dir/src/tools/toolB.cpp.o CMakeFiles/co_oCCur.dir/src/co_occur.cpp.o  -o co_oCCur libwebrtc.a libccaligner.a -lpthread 

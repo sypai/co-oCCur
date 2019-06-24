@@ -305,6 +305,9 @@
 		<Unit filename="/home/sypai/co-oCCur/src/co_occur.h">
 			<Option target="co_oCCur"/>
 		</Unit>
+		<Unit filename="/home/sypai/co-oCCur/src/main.cpp">
+			<Option target="co_oCCur"/>
+		</Unit>
 		<Unit filename="/home/sypai/co-oCCur/src/tools/toolA.cpp">
 			<Option target="co_oCCur"/>
 		</Unit>

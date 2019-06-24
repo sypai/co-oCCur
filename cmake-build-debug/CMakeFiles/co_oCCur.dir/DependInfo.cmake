@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/sypai/co-oCCur/src/co_occur.cpp" "/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir/src/co_occur.cpp.o"
+  "/home/sypai/co-oCCur/src/main.cpp" "/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir/src/main.cpp.o"
   "/home/sypai/co-oCCur/src/tools/toolA.cpp" "/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir/src/tools/toolA.cpp.o"
   "/home/sypai/co-oCCur/src/tools/toolB.cpp" "/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir/src/tools/toolB.cpp.o"
   "/home/sypai/co-oCCur/src/utils/audioSegmentation.cpp" "/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir/src/utils/audioSegmentation.cpp.o"

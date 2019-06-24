@@ -743,6 +743,33 @@ src/co_occur.cpp.s:
 	$(MAKE) -f CMakeFiles/co_oCCur.dir/build.make CMakeFiles/co_oCCur.dir/src/co_occur.cpp.s
 .PHONY : src/co_occur.cpp.s
 
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/co_oCCur.dir/build.make CMakeFiles/co_oCCur.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/co_oCCur.dir/build.make CMakeFiles/co_oCCur.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/co_oCCur.dir/build.make CMakeFiles/co_oCCur.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 src/tools/toolA.o: src/tools/toolA.cpp.o
 
 .PHONY : src/tools/toolA.o
@@ -928,6 +955,9 @@ help:
 	@echo "... src/co_occur.o"
 	@echo "... src/co_occur.i"
 	@echo "... src/co_occur.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/tools/toolA.o"
 	@echo "... src/tools/toolA.i"
 	@echo "... src/tools/toolA.s"
