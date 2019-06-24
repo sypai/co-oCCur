@@ -1,5 +1,0 @@
-/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/co_oCCur.dir
-/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/webrtc.dir
-/home/sypai/co-oCCur/cmake-build-debug/CMakeFiles/ccaligner.dir
