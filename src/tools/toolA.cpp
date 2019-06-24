@@ -75,7 +75,7 @@ void co_oCCur::ToolA::AFInserter()
 
 void co_oCCur::ToolA::generateFingerprints()
 {
-    std::cout << "\nProcessing Original Audio" << std::endl;
+    std::cout << "Processing Original Audio" << std::endl;
     WaveFileData* originalAudio = new WaveFileData(m_OriginalAudioFile);
 //    originalAudio->read();
 

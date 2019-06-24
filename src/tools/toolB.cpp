@@ -97,7 +97,7 @@ void co_oCCur::ToolB::createAudioString()
     file->read();
     std::vector<int16_t> samples = file->getSamples();
 
-    std::cout << "Audio String: " << std::endl;
+    std::cout << "\nAudio String: " << std::endl;
     audioString = runVAD(samples, m_SegmentWindow);
 
     DEBUG << "Audio String Created\n";
@@ -134,7 +134,7 @@ void co_oCCur::ToolB::adjust(long int delta)
 
     DEBUG << "SYNCHRONIZATION DONE" ;
     DEBUG << "co-oCCur subtitle document created." ;
-    DEBUG << "co-oCCur_" << m_OriginalSubtitleFile;
+    DEBUG << "co-oCCur" << m_OriginalSubtitleFile;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);

@@ -38,7 +38,7 @@ void co_oCCur::co_occur::init()
 {
     if (m_ToolName == "A")
     {
-        std::cout << "[TOOL] Using Tool A for synchronization" << std::endl;
+        std::cout << "[TOOL] Using Tool A for synchronization\n" << std::endl;
 
         co_oCCur::ToolA* handle;
         handle = new co_oCCur::ToolA(m_OriginalAudioFileName, m_ModifiedAudioFileName, m_OriginalSRTFileName);
@@ -50,7 +50,7 @@ void co_oCCur::co_occur::init()
 
     else if (m_ToolName == "B")
     {
-        std::cout << "[TOOL] Using Tool B for synchronization" << std::endl;
+        std::cout << "[TOOL] Using Tool B for synchronization\n" << std::endl;
 
         co_oCCur::ToolB* handle;
         handle = new co_oCCur::ToolB(m_ModifiedAudioFileName, m_OriginalSRTFileName);
