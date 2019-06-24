@@ -25,7 +25,7 @@ void PrintUsage()
         -modAudio OR -mod   FILE: Modified Audio file
         -orgSRT OR -s       FILE: Original Subtitle file
 
-    Example: ./co-oCCur -tool A -org episode1.wav -mod episode1_W/OCommercial -s input.srt
+    Example: ./co-oCCur -tool A -org episode1.wav -mod episode1_W/OCommercial.wav -s input.srt
     Example: ./co-oCCur -tool B -mod episode1_W/OCommercial.wav -s input.srt)";
 
     std::cout << usage << std::endl;
