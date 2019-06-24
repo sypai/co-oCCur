@@ -49,21 +49,25 @@ int ParseOptions(int arg_c, char* arg_v[])
         if ((parameter == "-tool" || parameter == "-t") && i + 1 < arg_c )
         {
             sync->setTool(arg_v[i+1]);
+            i++;
         }
 
         else if ((parameter == "-orgAudio" || parameter == "-org") && ((sync->getToolName() == "A") && (i + 1 < arg_c)))
         {
             sync->setOriginalAudio(arg_v[i+1]);
+            i++;
         }
 
         else if ((parameter == "-modAudio" || parameter == "-mod") && i + 1 < arg_c)
         {
             sync->setModifiedAudio(arg_v[i+1]);
+            i++;
         }
 
         else if ((parameter == "-orgSRT" || parameter == "-s") && i + 1 < arg_c)
         {
             sync->setOriginalSubtitle(arg_v[i+1]);
+            i++;
         }
 
         else

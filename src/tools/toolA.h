@@ -18,8 +18,6 @@
 
 namespace co_oCCur {
 
-    void createTempSRT(std::vector<SubtitleItem*> sub);
-
     class ToolA
     {
     private:
@@ -33,12 +31,14 @@ namespace co_oCCur {
     public:
         ToolA();
         ToolA(std::string OriginalAudioFile, std::string ModifiedAudioFile, std::string OriginalSubtitleFile);
-        void generateFingerprints();
-        void AFInserter();
-        void adjust();
+        void sync();
         ~ToolA();
 
     private:
+        void createTempSRT(const std::vector<SubtitleItem*>& sub);
+        void generateFingerprints();
+        void AFInserter();
+        void adjust(long int delta);
         long int seekAndCompare();
     };
 

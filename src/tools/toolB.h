@@ -31,13 +31,15 @@ namespace co_oCCur {
     public:
         ToolB();
         ToolB(std::string ModifiedAudioFile, std::string OriginalSubtitleFile);
-        long int align();
-        void adjust();
+        void sync();
         ~ToolB();
 
     private:
+        void createTempSRT(const std::vector<SubtitleItem*>& sub);
         void createAudioString();
         void createSubtitleString();
+        long int align();
+        void adjust(long int delta);
     };
 
 } // namespace co_oCCur

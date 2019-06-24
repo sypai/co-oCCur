@@ -43,7 +43,7 @@ void co_oCCur::co_occur::init()
         co_oCCur::ToolA* handle;
         handle = new co_oCCur::ToolA(m_OriginalAudioFileName, m_ModifiedAudioFileName, m_OriginalSRTFileName);
 
-        handle->adjust();
+        handle->sync();
 
         delete handle;
     }
@@ -55,7 +55,7 @@ void co_oCCur::co_occur::init()
         co_oCCur::ToolB* handle;
         handle = new co_oCCur::ToolB(m_ModifiedAudioFileName, m_OriginalSRTFileName);
 
-        handle->adjust();
+        handle->sync();
 
         delete handle;
     }

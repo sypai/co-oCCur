@@ -19,7 +19,7 @@ co_oCCur::ToolA::ToolA(std::string OriginalAudioFile, std::string ModifiedAudioF
 co_oCCur::ToolA::~ToolA()
 = default;
 
-void co_oCCur::createTempSRT(std::vector<SubtitleItem*> sub)
+void co_oCCur::ToolA::createTempSRT(const std::vector<SubtitleItem*>& sub)
 {
     std::ofstream myfile;
     myfile.open("temp.srt");
@@ -116,7 +116,7 @@ void co_oCCur::ToolA::generateFingerprints()
             969, 229, 984, 933, 30, 205, 935, 99, 30, 94, 252, 39, 920, 950
     };
 
-    long int fp2Time = 43660;
+    long int fp2Time = 3660;
     std::string original2(fp2, fp2 + sizeof(fp2) / sizeof(fp2[0]));
     std::string fp2_base64 = Base64Encode(original2);
 
@@ -133,7 +133,7 @@ void co_oCCur::ToolA::generateFingerprints()
             161, 49, 184, 135, 30, 405, 135, 119, 50, 94, 454, 51, 140, 150
     };
 
-    long int fp3Time = 43660;
+    long int fp3Time = 434660;
     std::string original3(fp3, fp3 + sizeof(fp3) / sizeof(fp3[0]));
     std::string fp3_base64 = Base64Encode(original3);
 
@@ -149,12 +149,14 @@ void co_oCCur::ToolA::generateFingerprints()
         DEBUG <<  m_Fingerprints[i] << "\n";
     }
 
-    AFInserter();
 }
 
 long int co_oCCur::ToolA::seekAndCompare()
 {
     generateFingerprints();
+
+    AFInserter();
+
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
     //TODO: This function will compare the fingerprints
@@ -165,9 +167,8 @@ long int co_oCCur::ToolA::seekAndCompare()
     return delta;
 }
 
-void co_oCCur::ToolA::adjust()
+void co_oCCur::ToolA::adjust(long int delta)
 {
-    auto delta = seekAndCompare();
 
     SubtitleParserFactory *spf;
     spf = new SubtitleParserFactory(m_OriginalSubtitleFile);
@@ -186,5 +187,14 @@ void co_oCCur::ToolA::adjust()
     edit = new co_oCCurEditor(sub);
 
     edit->AdjustSRT(m_OriginalSubtitleFile, delta, true);
+}
+
+void co_oCCur::ToolA::sync()
+{
+    generateFingerprints();
+    AFInserter();
+    seekAndCompare();
+    auto delta = seekAndCompare();
+    adjust(delta);
 }
 
