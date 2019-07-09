@@ -142,12 +142,14 @@ timestamps of fingerprint anchors.
 
 ## License
 GNU General Public License 3.0 (GPL-v3.0)
+
 Check [LICENSE.md](https://github.com/sypai/co-oCCur/blob/master/LICENSE.md)
 
 ## Community
 You may reach CCExtractor community through the slack channel
 where most CCExtractor developers hang out.
 * CCExtractor channel on [Slack](https://ccextractor.org/public:general:support?)
+
 We foster a welcoming and respectful community.
 
 ## Contributing 
