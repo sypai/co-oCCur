@@ -154,13 +154,37 @@ void co_oCCur::ToolA::generateFingerprints()
 long int co_oCCur::ToolA::seekAndCompare()
 {
     generateFingerprints();
-
     AFInserter();
 
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
-    //TODO: This function will compare the fingerprints
-    //      detect the constant temporal offset.
+    long int delta;
+
+    std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
+
+    for (int anchor_no=1; anchor_no < 4 ; anchor_no++)
+    {
+        int fpDuration = 1; // Default FP duration in seconds
+        long int seekOffset =  m_FPTimestamps[anchor_no];
+
+        for(int attempt = 1 ; attempt < 3 ; attempt++)
+        {
+            auto testFP = snapFP(modifiedAudioFile, seekOffset, fpDuration);
+
+            if(testFP.matches(m_Fingerprints[anchor_no]))
+            {
+                delta = testFP.matchOffset();
+
+                if( delta != 0 )
+                {
+                    for (int i = anchor_no + 1; i < 4; i++)
+                        m_FPTimestamps[i] = delta;
+
+
+                }
+            }
+        }
+    }
 
     long int delta = 3432; // The constant temporal offset
 
