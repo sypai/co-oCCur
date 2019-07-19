@@ -5,6 +5,7 @@
 */
 #include "co_occur.h"
 #include "../libs/lib_ext/chromaprint/src/chromaprint.h"
+#include "utils/dactylogram.h"
 
 void CLIHeader()
 {
@@ -97,7 +98,8 @@ int main(int argc, char *argv[])
 //    ParseOptions(argc, argv);
 //    CLIFooter();
 
-    std::cout << chromaprint_get_version();
+    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
+
     return 0;
 }
 

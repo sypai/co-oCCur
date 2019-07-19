@@ -149,6 +149,8 @@ set_target_properties(ccaligner PROPERTIES FOLDER libs/lib_ext/CCAligner)
 include_directories(src/ src/utils/)
 
 set(SourceFiles
+        src/utils/dactylogram.h
+        src/utils/dactylogram.cpp
         src/utils/base64Strings.h
         src/utils/base64Strings.cpp
         src/utils/audioSegmentation.h
