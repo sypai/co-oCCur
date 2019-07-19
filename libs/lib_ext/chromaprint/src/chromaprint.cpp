@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <memory>
 #include <cstring>
-#include <chromaprint.h>
+#include "chromaprint.h"
 #include "fingerprinter.h"
 #include "fingerprint_compressor.h"
 #include "fingerprint_decompressor.h"

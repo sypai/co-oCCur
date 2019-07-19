@@ -5,7 +5,7 @@
 #define CHROMAPRINT_UTILS_GAUSSIAN_FILTER_H_
 
 #include <cmath>
-#include "debug.h"
+#include "../debug.h"
 
 namespace chromaprint {
 

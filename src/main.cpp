@@ -4,6 +4,7 @@
 * Github: https://github.com/sypai
 */
 #include "co_occur.h"
+#include "../libs/lib_ext/chromaprint/src/chromaprint.h"
 
 void CLIHeader()
 {
@@ -92,9 +93,11 @@ void CLIFooter()
 
 int main(int argc, char *argv[])
 {
-    CLIHeader();
-    ParseOptions(argc, argv);
-    CLIFooter();
+//    CLIHeader();
+//    ParseOptions(argc, argv);
+//    CLIFooter();
+
+    std::cout << chromaprint_get_version();
     return 0;
 }
 

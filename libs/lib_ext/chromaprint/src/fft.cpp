@@ -3,7 +3,7 @@
 
 #include "audio/audio_slicer.h"
 #include "utils.h"
-#include "fft_lib.h"
+#include "fft_lib_kissfft.h"
 #include "fft.h"
 #include "debug.h"
 

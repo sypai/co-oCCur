@@ -148,8 +148,13 @@ void co_oCCur::ToolA::generateFingerprints()
         DEBUG << "TIMESTAMP: " << m_FPTimestamps[i] ;
         DEBUG <<  m_Fingerprints[i] << "\n";
     }
+}
+
+std::vector<int> snapFP(std::string modifiedAudio, long int seekOffset, int fpDuration)
+{
 
 }
+
 
 long int co_oCCur::ToolA::seekAndCompare()
 {
@@ -158,6 +163,7 @@ long int co_oCCur::ToolA::seekAndCompare()
 
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
+    std::string modifiedAudioFile = m_ModifiedAudioFile;
     long int delta;
 
     std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
@@ -171,22 +177,22 @@ long int co_oCCur::ToolA::seekAndCompare()
         {
             auto testFP = snapFP(modifiedAudioFile, seekOffset, fpDuration);
 
-            if(testFP.matches(m_Fingerprints[anchor_no]))
-            {
-                delta = testFP.matchOffset();
-
-                if( delta != 0 )
-                {
-                    for (int i = anchor_no + 1; i < 4; i++)
-                        m_FPTimestamps[i] = delta;
-
-
-                }
-            }
+//            if(testFP.matches(m_Fingerprints[anchor_no]))
+//            {
+//                delta = testFP.matchOffset();
+//
+//                if( delta != 0 )
+//                {
+//                    for (int i = anchor_no + 1; i < 4; i++)
+//                        m_FPTimestamps[i] = delta;
+//
+//
+//                }
+//            }
         }
     }
 
-    long int delta = 3432; // The constant temporal offset
+    delta = 3432; // The constant temporal offset
 
     return delta;
 }

@@ -43,6 +43,19 @@ set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
 
 ## chromaprint for audiofingerprinting
 include_directories(libs/lib_ext/chromaprint)
+
+set(kissfftFiles
+        libs/lib_ext/chromaprint/vendor/kissfft/kiss_fft.h
+        libs/lib_ext/chromaprint/vendor/kissfft/kiss_fft.c
+        libs/lib_ext/chromaprint/vendor/kissfft/tools/kiss_fftr.h
+        libs/lib_ext/chromaprint/vendor/kissfft/tools/kiss_fftr.c
+        )
+
+set(avFiles
+        libs/lib_ext/chromaprint/src/avresample/avcodec.h
+        libs/lib_ext/chromaprint/src/avresample/resample2.c
+        )
+
 set(chromaprintFiles
         libs/lib_ext/chromaprint/src/audio_consumer.h
         libs/lib_ext/chromaprint/src/audio_processor.cpp
@@ -57,16 +70,16 @@ set(chromaprintFiles
         libs/lib_ext/chromaprint/src/classifier.h
         libs/lib_ext/chromaprint/src/debug.h
         libs/lib_ext/chromaprint/src/feature_vector_consumer.h
-        libs/lib_ext/chromaprint/src/fft.h
-        libs/lib_ext/chromaprint/src/fft.cpp
-        libs/lib_ext/chromaprint/src/fft_frame.h
-        libs/lib_ext/chromaprint/src/fft_frame_consumer.h
-        libs/lib_ext/chromaprint/src/fft_lib.h
-        libs/lib_ext/chromaprint/src/fft_lib_avfft.h
-        libs/lib_ext/chromaprint/src/fft_lib_avfft.cpp
+#        libs/lib_ext/chromaprint/src/fft_lib_avfft.h
+#        libs/lib_ext/chromaprint/src/fft_lib_avfft.cpp
         libs/lib_ext/chromaprint/src/fft_lib_kissfft.h
         libs/lib_ext/chromaprint/src/fft_lib_kissfft.cpp
-        libs/lib_ext/chromaprint/src/fft_test.cpp
+        libs/lib_ext/chromaprint/src/fft_lib.h
+        libs/lib_ext/chromaprint/src/fft_frame.h
+        libs/lib_ext/chromaprint/src/fft_frame_consumer.h
+        libs/lib_ext/chromaprint/src/fft.h
+        libs/lib_ext/chromaprint/src/fft.cpp
+#        libs/lib_ext/chromaprint/src/fft_test.cpp
         libs/lib_ext/chromaprint/src/filter.h
         libs/lib_ext/chromaprint/src/filter_utils.h
         libs/lib_ext/chromaprint/src/fingerprint_calculator.h
@@ -110,7 +123,7 @@ set(chromaprintUtils
         libs/lib_ext/chromaprint/src/utils/scope_exit.h
         )
 
-add_library(chromaprint ${chromaprintUtils} ${chromaprintFiles})
+add_library(chromaprint ${avFiles} ${kissfftFiles} ${chromaprintUtils} ${chromaprintFiles})
 set_target_properties(chromaprint PROPERTIES FOLDER libs/lib_ext/chromaprint)
 
 

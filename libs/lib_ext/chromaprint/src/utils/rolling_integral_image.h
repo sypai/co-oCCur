@@ -8,7 +8,7 @@
 #include <cassert>
 #include <algorithm>
 #include <numeric>
-#include "debug.h"
+#include "../debug.h"
 
 namespace chromaprint {
 
