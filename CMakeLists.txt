@@ -41,6 +41,79 @@ set(VADFiles
 add_library(webrtc ${VADFiles})
 set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
 
+## chromaprint for audiofingerprinting
+include_directories(libs/lib_ext/chromaprint)
+set(chromaprintFiles
+        libs/lib_ext/chromaprint/src/audio_consumer.h
+        libs/lib_ext/chromaprint/src/audio_processor.cpp
+        libs/lib_ext/chromaprint/src/audio_processor.h
+        libs/lib_ext/chromaprint/src/chroma.h
+        libs/lib_ext/chromaprint/src/chroma.cpp
+        libs/lib_ext/chromaprint/src/chroma_filter.h
+        libs/lib_ext/chromaprint/src/chroma_filter.cpp
+        libs/lib_ext/chromaprint/src/chroma_normalizer.h
+        libs/lib_ext/chromaprint/src/chroma_resampler.h
+        libs/lib_ext/chromaprint/src/chroma_resampler.cpp
+        libs/lib_ext/chromaprint/src/classifier.h
+        libs/lib_ext/chromaprint/src/debug.h
+        libs/lib_ext/chromaprint/src/feature_vector_consumer.h
+        libs/lib_ext/chromaprint/src/fft.h
+        libs/lib_ext/chromaprint/src/fft.cpp
+        libs/lib_ext/chromaprint/src/fft_frame.h
+        libs/lib_ext/chromaprint/src/fft_frame_consumer.h
+        libs/lib_ext/chromaprint/src/fft_lib.h
+        libs/lib_ext/chromaprint/src/fft_lib_avfft.h
+        libs/lib_ext/chromaprint/src/fft_lib_avfft.cpp
+        libs/lib_ext/chromaprint/src/fft_lib_kissfft.h
+        libs/lib_ext/chromaprint/src/fft_lib_kissfft.cpp
+        libs/lib_ext/chromaprint/src/fft_test.cpp
+        libs/lib_ext/chromaprint/src/filter.h
+        libs/lib_ext/chromaprint/src/filter_utils.h
+        libs/lib_ext/chromaprint/src/fingerprint_calculator.h
+        libs/lib_ext/chromaprint/src/fingerprint_calculator.cpp
+        libs/lib_ext/chromaprint/src/fingerprint_compressor.h
+        libs/lib_ext/chromaprint/src/fingerprint_compressor.cpp
+        libs/lib_ext/chromaprint/src/fingerprint_decompressor.h
+        libs/lib_ext/chromaprint/src/fingerprint_decompressor.cpp
+        libs/lib_ext/chromaprint/src/fingerprint_matcher.h
+        libs/lib_ext/chromaprint/src/fingerprint_matcher.cpp
+        libs/lib_ext/chromaprint/src/fingerprinter.h
+        libs/lib_ext/chromaprint/src/fingerprinter.cpp
+        libs/lib_ext/chromaprint/src/fingerprinter_configuration.h
+        libs/lib_ext/chromaprint/src/fingerprinter_configuration.cpp
+        libs/lib_ext/chromaprint/src/image.h
+        libs/lib_ext/chromaprint/src/image_builder.h
+        libs/lib_ext/chromaprint/src/image_builder.cpp
+        libs/lib_ext/chromaprint/src/moving_average.h
+        libs/lib_ext/chromaprint/src/quantizer.h
+        libs/lib_ext/chromaprint/src/silence_remover.h
+        libs/lib_ext/chromaprint/src/silence_remover.cpp
+        libs/lib_ext/chromaprint/src/simhash.h
+        libs/lib_ext/chromaprint/src/simhash.cpp
+        libs/lib_ext/chromaprint/src/spectrum.h
+        libs/lib_ext/chromaprint/src/spectrum.cpp
+        libs/lib_ext/chromaprint/src/utils.h
+        libs/lib_ext/chromaprint/src/chromaprint.h
+        libs/lib_ext/chromaprint/src/chromaprint.cpp
+        )
+
+set(chromaprintUtils
+        libs/lib_ext/chromaprint/src/utils/base64.h
+        libs/lib_ext/chromaprint/src/utils/base64.cpp
+        libs/lib_ext/chromaprint/src/utils/gaussian_filter.h
+        libs/lib_ext/chromaprint/src/utils/gradient.h
+        libs/lib_ext/chromaprint/src/utils/pack_int3_array.h
+        libs/lib_ext/chromaprint/src/utils/pack_int5_array.h
+        libs/lib_ext/chromaprint/src/utils/unpack_int3_array.h
+        libs/lib_ext/chromaprint/src/utils/unpack_int5_array.h
+        libs/lib_ext/chromaprint/src/utils/rolling_integral_image.h
+        libs/lib_ext/chromaprint/src/utils/scope_exit.h
+        )
+
+add_library(chromaprint ${chromaprintUtils} ${chromaprintFiles})
+set_target_properties(chromaprint PROPERTIES FOLDER libs/lib_ext/chromaprint)
+
+
 ## CCAligner for audio processing
 include_directories(libs/lib_ext/CCAligner)
 set(ReadAudio
@@ -54,7 +127,7 @@ set(ReadAudio
         libs/lib_ext/CCAligner/read_wav_file.cpp
         )
 add_library(ccaligner ${ReadAudio})
-set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/CCAligner)
+set_target_properties(ccaligner PROPERTIES FOLDER libs/lib_ext/CCAligner)
 
 ###### END INCLUDE libs
 
@@ -77,4 +150,4 @@ set(SourceFiles
         )
 
 add_executable(co_oCCur ${SourceFiles})
-target_link_libraries(co_oCCur webrtc ccaligner ${EXTRA_FLAGS})
+target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})
