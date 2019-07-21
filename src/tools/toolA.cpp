@@ -177,18 +177,18 @@ long int co_oCCur::ToolA::seekAndCompare()
         {
             auto testFP = snapFP(modifiedAudioFile, seekOffset, fpDuration);
 
-//            if(testFP.matches(m_Fingerprints[anchor_no]))
-//            {
-//                delta = testFP.matchOffset();
-//
-//                if( delta != 0 )
-//                {
-//                    for (int i = anchor_no + 1; i < 4; i++)
-//                        m_FPTimestamps[i] = delta;
-//
-//
-//                }
-//            }
+            if(testFP.matches(m_Fingerprints[anchor_no]))
+            {
+                delta = testFP.matchOffset();
+
+                if( delta != 0 )
+                {
+                    for (int i = anchor_no + 1; i < 4; i++)
+                        m_FPTimestamps[i] = delta;
+
+
+                }
+            }
         }
     }
 

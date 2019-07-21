@@ -45,9 +45,9 @@ class WaveFileData
     double twoBytesToDouble (int sample);                                           //convert 2 bytes to double; not required rn
 
 public:
-    unsigned long m_TotalSamples;
-    WaveFileData(std::string fileName, bool isRawFile = false) noexcept;                    //initialize wave file for file on disk mode; pass file name
-    WaveFileData(openMode mode = readStreamDirectly, bool isRawFile = false) noexcept;   //initialize wave file for stream mode; optionally store in buffer
+    unsigned long int m_TotalSamples;
+    explicit WaveFileData(std::string fileName, bool isRawFile = false) noexcept;                    //initialize wave file for file on disk mode; pass file name
+    explicit WaveFileData(openMode mode = readStreamDirectly, bool isRawFile = false) noexcept;   //initialize wave file for stream mode; optionally store in buffer
 
     bool openFile();                //open file using file name
     bool readStream();              //process stream directly
