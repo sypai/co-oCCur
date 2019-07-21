@@ -204,6 +204,8 @@ bool WaveFileData::decode()     //decodes the wave file
 
     unsigned long int numSamples = subChunk2Size * 8 / ( numChannels * bitRate);
 
+    m_TotalSamples = numSamples;
+
     DEBUG << "Number of samples : " << numSamples;
     DEBUG << "Reading samples";
 
