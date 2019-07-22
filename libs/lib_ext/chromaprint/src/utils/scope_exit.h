@@ -17,9 +17,12 @@ struct ScopeExit {
 };
 
 template <typename F>
-ScopeExit<F> MakeScopeExit(F f) {
-	return ScopeExit<F>(f);
-};
+ScopeExit<F> MakeScopeExit(F f);
+
+    template<typename F>
+    ScopeExit<F> MakeScopeExit(F f) {
+        return ScopeExit<F>(f);
+    };
 
 #define SCOPE_EXIT(code) \
 	auto SCOPE_EXIT_STRING_JOIN2(scope_exit_, __LINE__) = MakeScopeExit([&](){ code; })

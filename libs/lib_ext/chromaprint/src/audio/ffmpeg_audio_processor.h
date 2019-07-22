@@ -10,10 +10,10 @@
 
 #if defined(USE_SWRESAMPLE)
 #include "audio/ffmpeg_audio_processor_swresample.h"
-#elif defined(USE_AVRESAMPLE)
-#include "audio/ffmpeg_audio_processor_avresample.h"
-#else
-#error "no audio processing library"
+//#if defined(USE_AVRESAMPLE)
+//#include "audio/ffmpeg_audio_processor_avresample.h"
 #endif
 
 #endif
+
+//#endif

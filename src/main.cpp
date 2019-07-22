@@ -98,7 +98,13 @@ int main(int argc, char *argv[])
 //    ParseOptions(argc, argv);
 //    CLIFooter();
 
-    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
+//    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
+
+    co_oCCur::Dactylogram *fp;
+    fp = new co_oCCur::Dactylogram("/home/sypai/co-oCCur/install/TestFiles/WAVAudio/example1.wav");
+
+    fp->readAudio();
+    fp->igniteChromaprint();
 
     return 0;
 }

@@ -167,30 +167,30 @@ long int co_oCCur::ToolA::seekAndCompare()
     long int delta;
 
     std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
-
-    for (int anchor_no=1; anchor_no < 4 ; anchor_no++)
-    {
-        int fpDuration = 1; // Default FP duration in seconds
-        long int seekOffset =  m_FPTimestamps[anchor_no];
-
-        for(int attempt = 1 ; attempt < 3 ; attempt++)
-        {
-            auto testFP = snapFP(modifiedAudioFile, seekOffset, fpDuration);
-
-            if(testFP.matches(m_Fingerprints[anchor_no]))
-            {
-                delta = testFP.matchOffset();
-
-                if( delta != 0 )
-                {
-                    for (int i = anchor_no + 1; i < 4; i++)
-                        m_FPTimestamps[i] = delta;
-
-
-                }
-            }
-        }
-    }
+//
+//    for (int anchor_no=1; anchor_no < 4 ; anchor_no++)
+//    {
+//        int fpDuration = 1; // Default FP duration in seconds
+//        long int seekOffset =  m_FPTimestamps[anchor_no];
+//
+//        for(int attempt = 1 ; attempt < 3 ; attempt++)
+//        {
+//            auto testFP = snapFP(modifiedAudioFile, seekOffset, fpDuration);
+//
+//            if(testFP.matches(m_Fingerprints[anchor_no]))
+//            {
+//                delta = testFP.matchOffset();
+//
+//                if( delta != 0 )
+//                {
+//                    for (int i = anchor_no + 1; i < 4; i++)
+//                        m_FPTimestamps[i] = delta;
+//
+//
+//                }
+//            }
+//        }
+//    }
 
     delta = 3432; // The constant temporal offset
 

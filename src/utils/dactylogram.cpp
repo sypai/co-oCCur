@@ -4,7 +4,6 @@
 * Github: https://github.com/sypai
 */
 
-#include <utility>
 #include "dactylogram.h"
 
 co_oCCur::Dactylogram::Dactylogram()
@@ -20,39 +19,106 @@ co_oCCur::Dactylogram::Dactylogram(std::string FileName)
 co_oCCur::Dactylogram::~Dactylogram()
 = default;
 
+double co_oCCur::Dactylogram::GetCurrentTimestamp()
+{
+    const auto now = std::chrono::system_clock::now();
+    const auto usec = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch());
+    return usec.count() / 1000000.0;
+}
+
 void co_oCCur::Dactylogram::readAudio()
 {
     WaveFileData * file = new WaveFileData(m_AudioFileName);
     file->read();
     m_Samples = file->getSamples();
-    m_NumberOfSamples = file->m_TotalSamples;
+//    m_NumberOfSamples = file->m_TotalSamples;
+    m_NumberOfSamples = 1000000;
 
     delete file;
+
 }
 
 void co_oCCur::Dactylogram::read(const int16_t **data, size_t *size)
 {
     std::vector<int16_t> tempSamples;
 
+    tempSamples.reserve(44666);
+
     for (int i=0; i < 44666; i++)
     {
-        tempSamples[i] = m_Samples[i + m_temp_sample_num];
+        if (i + m_temp_sample_num < m_Samples.size())
+        {
+            tempSamples.emplace_back(m_Samples[i + m_temp_sample_num]);
+        }
     }
 
     *data = &tempSamples[0];
     *size = 44666;
+
+    m_temp_sample_num += 44665;
+}
+
+void co_oCCur::Dactylogram::printResult(bool first, double timestamp, double duration)
+{
+    using namespace chromaprint;
+    std::string tmp_fp;
+    const char *fp;
+    bool dealloc_fp = false;
+
+    int size;
+    if (!chromaprint_get_raw_fingerprint_size(m_ctx, &size))
+    {
+        std::cout << "[ERROR] : Could not get the fingerprinting size" << std::endl;
+        exit(2);
+    }
+
+    if (size <= 0)
+    {
+        if (first)
+        {
+            std::cout << "[ERROR] : Empty fingerprint" << std::endl;
+            exit(2);
+        }
+        return;
+    }
+
+    char *tmp_fp2;
+
+    if (!chromaprint_get_fingerprint(m_ctx, &tmp_fp2))
+    {
+        std::cout << "[ERROR] : Could not get fingerprint" << std::endl;
+        exit(2);
+    }
+    fp = tmp_fp2;
+    dealloc_fp = true;
+
+
+    SCOPE_EXIT(if (dealloc_fp)
+    {
+        chromaprint_dealloc((void *) fp);
+    });
+
+    std::cout << "{\"timestamp\": " << FIXED_FLOAT(timestamp);
+    std::cout << ", \"duration\": " << duration << R"(, "fingerprint": ")" << fp << "\"}" << std::endl;
+
+    fflush(stdout);
 }
 
 void co_oCCur::Dactylogram::igniteChromaprint()
 {
+    chromaprint::FFmpegAudioReader reader;
+
+    reader.Open(m_AudioFileName);
+
     m_NumberOfSeconds = (double)m_NumberOfSamples / SampleRate;
     m_NumberOfMilliSeconds = (unsigned long int)(m_NumberOfSeconds * 1000);
 
-    MaxDuration = m_NumberOfSeconds + 1000;
+    MaxDuration = m_NumberOfSeconds + 10;
 
-    auto size = m_Samples.size();
+    double ts = 0.0;
+    ts = GetCurrentTimestamp();
 
-    if (!chromaprint_start(m_ctx, SampleRate, NumOfChannels))
+    if (!chromaprint_start(m_ctx, reader.GetSampleRate(), reader.GetChannels()))
     {
         std::cout << "[ERROR] : Could not initialize the fingerprinting process" << std::endl;
         exit(2);
@@ -70,19 +136,25 @@ void co_oCCur::Dactylogram::igniteChromaprint()
     if (chunk_limit > 0)
     {
         extra_chunk_limit = chromaprint_get_delay(m_ctx);
-        overlap = chromaprint_get_delay_ms(m_ctx);
+        overlap = chromaprint_get_delay_ms(m_ctx) / 1000.0;
     }
 
     bool first_chunk = true;
     bool got_results = false;
 
-    while (m_temp_sample_num < m_NumberOfSamples)
+    signed long int rem_Samples = m_NumberOfSamples;
+
+//    while (rem_Samples > 0)
+    while(!reader.IsFinished())
     {
         const int16_t *frame_data = nullptr;
         size_t frame_size = 0;
 
-        read(&frame_data, &frame_size);
+        reader.Read(&frame_data, &frame_size);
 
+        rem_Samples -= frame_size;
+
+        std::cout << rem_Samples << std::endl;
         bool stream_done = false;
 
         if (stream_limit > 0)
@@ -127,16 +199,31 @@ void co_oCCur::Dactylogram::igniteChromaprint()
 
         if (chunk_done)
         {
-            if (! chromaprint_finish(m_ctx))
+            if (!chromaprint_finish(m_ctx))
             {
                 std::cout << "[ERROR] : Could not finish the fingerprinting process" << std::endl;
                 exit(2);
             }
 
             const auto chunk_duration = (chunk_size - extra_chunk_limit) * 1.0 / SampleRate + overlap;
+            printResult(first_chunk, ts, chunk_duration);
             got_results = true;
 
+            ts = GetCurrentTimestamp();
 
+            if (! chromaprint_clear_fingerprint(m_ctx))
+            {
+                std::cout << "[ERROR] : Could not initialize the fingerprinting process" << std::endl;
+                exit(2);
+            }
+
+            ts -= overlap;
+
+            if (first_chunk)
+            {
+                extra_chunk_limit = 0;
+                first_chunk = false;
+            }
         }
 
         frame_data += first_part_size * NumOfChannels;
@@ -144,7 +231,7 @@ void co_oCCur::Dactylogram::igniteChromaprint()
 
         if (frame_size > 0)
         {
-            if (! chromaprint_feed(m_ctx, frame_data, frame_size * NumOfChannels))
+            if (!chromaprint_feed(m_ctx, frame_data, frame_size * NumOfChannels))
             {
                 std::cout << "[ERROR] : Could not process the audio data" << std::endl;
                 exit(2);
@@ -169,6 +256,7 @@ void co_oCCur::Dactylogram::igniteChromaprint()
     if (chunk_size > 0)
     {
         const auto chunk_duration = (chunk_size - extra_chunk_limit) * 1.0 / SampleRate + overlap;
+        printResult(first_chunk, ts, chunk_duration);
         got_results = true;
     }
 
@@ -179,38 +267,38 @@ void co_oCCur::Dactylogram::igniteChromaprint()
     }
 }
 
-void igniteChromaprint(std::string FileName)
-{
-    ChromaprintContext *ctx;
-    ctx = chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT);
-
-    const int sample_rate = 16000;
-    const int channels = 1;
-
-    if (chromaprint_start(ctx, sample_rate, channels))
-    {
-        auto samples = readAudio(std::move(FileName));
-
-
-
-        for(int i = 0 ; i < size; i++)
-        {
-            int16_t* data = &samples[i];
-            chromaprint_feed(ctx, data, 4);
-        }
-
-        chromaprint_finish(ctx);
-    }
-
-    char* fp;
-    chromaprint_get_fingerprint(ctx, &fp);
-
-    std::cout << fp << std::endl;
-
-    chromaprint_dealloc(fp);
-
-    chromaprint_free(ctx);
-}
+//void igniteChromaprint(std::string FileName)
+//{
+//    ChromaprintContext *ctx;
+//    ctx = chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT);
+//
+//    const int sample_rate = 16000;
+//    const int channels = 1;
+//
+//    if (chromaprint_start(ctx, sample_rate, channels))
+//    {
+//        auto samples = readAudio(std::move(FileName));
+//
+//
+//
+//        for(int i = 0 ; i < size; i++)
+//        {
+//            int16_t* data = &samples[i];
+//            chromaprint_feed(ctx, data, 4);
+//        }
+//
+//        chromaprint_finish(ctx);
+//    }
+//
+//    char* fp;
+//    chromaprint_get_fingerprint(ctx, &fp);
+//
+//    std::cout << fp << std::endl;
+//
+//    chromaprint_dealloc(fp);
+//
+//    chromaprint_free(ctx);
+//}
 
 std::vector<std::string> getFP(std::string FileName)
 {

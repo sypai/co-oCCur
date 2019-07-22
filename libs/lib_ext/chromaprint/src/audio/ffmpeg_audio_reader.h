@@ -8,8 +8,8 @@
 #include <config.h>
 #endif
 
-#include "debug.h"
-#include "utils/scope_exit.h"
+#include "../debug.h"
+#include "../utils/scope_exit.h"
 #include <cstdlib>
 #include <string>
 #include <memory>
@@ -21,7 +21,7 @@ extern "C" {
 #include <libavutil/channel_layout.h>
 }
 
-#include "audio/ffmpeg_audio_processor.h"
+#include "ffmpeg_audio_processor_swresample.h"
 
 #ifndef HAVE_AV_PACKET_UNREF
 #define av_packet_unref av_free_packet
