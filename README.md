@@ -13,7 +13,7 @@
 **co-oCCur** is a high-speed subtitle synchronization tool. 
 It is being developed under GSoC 2019 with **CCExtractor development**.
 <br />
-Mentor: @[csfmp3](https://github.com/cfsmp3)
+Mentor: @[cfsmp3](https://github.com/cfsmp3)
 
 It consists of two tools:<br />
 **Tool A** 
@@ -69,10 +69,11 @@ The parameters to be passed to **co-oCCur**. <br />
 | **Parameter** 	| **Value** 	| **Description** 	|
 |:---------------------:	|:-----------------------------------:	|:------------------------------------------------------------------------------------------------------------:	|
 | `-tool` OR `-t` 	| NAME A OR B 	| Select the tool to be used for subtitle synchronization. REQUIREMENT: YES 	|
-| `-orgAudio` OR `-org` 	| FILE /path/to/original/audio.wav 	| Original Audio File Restriction: Must be PCM mono sampled at 16000 Hz REQUIREMENT: TOOL A, YES    TOOL B, NO 	|
-| `-modAudio` OR `-mod` 	| FILE /path/to/modified/audio.wav 	| Modified Audio File Restriction: Must be PCM mono sampled at 16000 Hz REQUIREMENT: YES 	|
-| `-orgSRT` OR `-s` 	| FILE /path/to/original/subtitle.srt 	| Original subtitle file for the the original audio. REQUIREMENT: YES 	|
+| `-org` OR `-o` 	| FILE /path/to/original/audio.wav 	| Original Audio File REQUIREMENT: TOOL A, YES    TOOL B, NO 	|
+| `-mod` OR `-m` 	| FILE /path/to/modified/audio.wav 	| Modified Audio File REQUIREMENT: YES 	|
+| `-srt` OR `-s` 	| FILE /path/to/original/subtitle.srt 	| Original subtitle file REQUIREMENT: YES 	|
 
+[Restriction: Audio files must be PCM mono sampled at 16000 Hz]
 
 ## Notes
 
@@ -130,7 +131,7 @@ The input subtitle file should be a clean and proper SubRip (SRT) file.
 
 * IN:
 ```bash
-./co_oCCur -t A -org ./install/TestFiles/WavAudio/example.wav -mod ./install/TestFiles/WavAudio/example1.wav -s ./install/TestFiles/Subtitles/example.srt
+./co_oCCur -t A -o ./install/TestFiles/WavAudio/example.wav -m ./install/TestFiles/WavAudio/example1.wav -s ./install/TestFiles/Subtitles/example.srt
 ```
 What will this trigger?
 1. Tool A to be used for synchronization.
@@ -151,7 +152,7 @@ You may reach CCExtractor community through the slack channel
 where most CCExtractor developers hang out.
 * CCExtractor channel on [Slack](https://ccextractor.org/public:general:support?)
 
-We foster a welcoming and respectful community.
+We foster a welcoming and respectful community. &#128080;
 
 ## Contributing 
 Any contribution to the project would be highly appreciated! 

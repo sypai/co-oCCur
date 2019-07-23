@@ -19,13 +19,13 @@ void PrintUsage()
 {
     std::string usage;
     usage = R"(Syntax:
-    ./co-oCCur -tool "A | B" -orgAudio /path/to/original/wav/file -modAudio /path/to/modified/wav/file -s /path/to/SRT
+    ./co-oCCur -tool "A | B" -org /path/to/original/wav/file -mod /path/to/modified/wav/file -s /path/to/SRT
 
     Options:
         -tool OR -t         NAME:  A or B (Set the Tool to be used)
-        -orgAudio OR -org   FILE: Original Audio file
-        -modAudio OR -mod   FILE: Modified Audio file
-        -orgSRT OR -s       FILE: Original Subtitle file
+        -org OR -o   FILE: Original Audio file
+        -mod OR -m   FILE: Modified Audio file
+        -srt OR -s       FILE: Original Subtitle file
 
     Example: ./co-oCCur -tool A -org episode1.wav -mod episode1_W/OCommercial.wav -s input.srt
     Example: ./co-oCCur -tool B -mod episode1_W/OCommercial.wav -s input.srt)";
@@ -54,19 +54,19 @@ int ParseOptions(int arg_c, char* arg_v[])
             i++;
         }
 
-        else if ((parameter == "-orgAudio" || parameter == "-o") && ((sync->getToolName() == "A") && (i + 1 < arg_c)))
+        else if ((parameter == "-org" || parameter == "-o") && ((sync->getToolName() == "A") && (i + 1 < arg_c)))
         {
             sync->setOriginalAudio(arg_v[i+1]);
             i++;
         }
 
-        else if ((parameter == "-modAudio" || parameter == "-m") && i + 1 < arg_c)
+        else if ((parameter == "-mod" || parameter == "-m") && i + 1 < arg_c)
         {
             sync->setModifiedAudio(arg_v[i+1]);
             i++;
         }
 
-        else if ((parameter == "-orgSRT" || parameter == "-s") && i + 1 < arg_c)
+        else if ((parameter == "-srt" || parameter == "-s") && i + 1 < arg_c)
         {
             sync->setOriginalSubtitle(arg_v[i+1]);
             i++;
