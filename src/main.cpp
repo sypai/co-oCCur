@@ -44,7 +44,7 @@ int ParseOptions(int arg_c, char* arg_v[])
         return 11;
     }
 
-    for (int i=1; i<arg_c; i++)
+    for (int i=2; i<arg_c; i++)
     {
         std::string parameter(arg_v[i]);
 
@@ -54,13 +54,13 @@ int ParseOptions(int arg_c, char* arg_v[])
             i++;
         }
 
-        else if ((parameter == "-orgAudio" || parameter == "-org") && ((sync->getToolName() == "A") && (i + 1 < arg_c)))
+        else if ((parameter == "-orgAudio" || parameter == "-o") && ((sync->getToolName() == "A") && (i + 1 < arg_c)))
         {
             sync->setOriginalAudio(arg_v[i+1]);
             i++;
         }
 
-        else if ((parameter == "-modAudio" || parameter == "-mod") && i + 1 < arg_c)
+        else if ((parameter == "-modAudio" || parameter == "-m") && i + 1 < arg_c)
         {
             sync->setModifiedAudio(arg_v[i+1]);
             i++;
@@ -94,17 +94,18 @@ void CLIFooter()
 
 int main(int argc, char *argv[])
 {
-//    CLIHeader();
-//    ParseOptions(argc, argv);
-//    CLIFooter();
+    CLIHeader();
+    ParseOptions(argc, argv);
+    CLIFooter();
 
-//    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
-
-    co_oCCur::Dactylogram *fp;
-    fp = new co_oCCur::Dactylogram("/home/sypai/co-oCCur/install/TestFiles/WAVAudio/example1.wav");
-
-    fp->readAudio();
-    fp->igniteChromaprint();
+////    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
+//
+//    co_oCCur::Dactylogram *fp;
+//    fp = new co_oCCur::Dactylogram("/home/sypai/co-oCCur/install/TestFiles/WAVAudio/example1.wav");
+//
+////    fp->readAudio();
+//    fp->igniteChromaprint();
+//    fp->collectFingerprints();
 
     return 0;
 }

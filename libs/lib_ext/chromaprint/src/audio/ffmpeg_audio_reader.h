@@ -166,7 +166,7 @@ inline bool FFmpegAudioReader::Open(const std::string &file_name) {
 
 	ret = avformat_find_stream_info(m_format_ctx, nullptr);
 	if (ret < 0) {
-		SetError("Coud not find stream information in the file", ret);
+		SetError("Could not find stream information in the file", ret);
 		return false;
 	}
 

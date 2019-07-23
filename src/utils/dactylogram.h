@@ -10,10 +10,14 @@
 #include <utility>
 #include <chrono>
 #include <iomanip>
-
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <sstream>
 #include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 #include "../../libs/lib_ext/chromaprint/src/chromaprint.h"
-#include "../../libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_reader.h"
+
+//#include "../../libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_reader.h"
 #include "../../libs/lib_ext/chromaprint/src/utils/scope_exit.h"
 
 // Number of channels in the audio
@@ -35,27 +39,32 @@ namespace co_oCCur{
     class Dactylogram
     {
     private:
-
         std::string m_AudioFileName;
         std::vector<int16_t> m_Samples;
         unsigned long int m_NumberOfSamples;
-        double m_NumberOfSeconds;
-        unsigned long int m_NumberOfMilliSeconds;
+        double m_NumberOfSecondsPrecise;
+        int m_NumberOfSeconds;
+        long int m_NumberOfMilliSeconds;
         unsigned long int m_temp_sample_num;
+        std::vector<std::vector<uint32_t> > m_AudioFingerprints;
         ChromaprintContext *m_ctx;
 
     public:
         Dactylogram();
         Dactylogram(std::string FileName);
         ~Dactylogram();
-        void readAudio();
-        void igniteChromaprint();
+        void collectFingerprints();
+//        void collectFingerprints(std::vector<std::vector<uint32_t>>* array);
+        std::vector<std::vector<uint32_t> > getFingerprints() const ;
+        double getAudioLength_secs() const ;
+        long int getAudioLength_ms() const ;
 
     private:
-        double GetCurrentTimestamp();
-
-        void read(const int16_t **data, size_t *size);
-        void printResult(bool first, double timestamp, double duration);
+        void readAudio();
+        void igniteChromaprint();
+//        double GetCurrentTimestamp();
+//        void read(const int16_t **data, size_t *size);
+//        void printResult(bool first, double timestamp, double duration);
 
     };
 } // namespace co_oCCur

@@ -11,10 +11,11 @@
 #include <vector>
 #include <utility>
 #include <unistd.h>
+#include <algorithm>
 #include "../../libs/lib_co-oCCur/SiftSRT/SiftSRT.h"
 #include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 #include "../utils/base64Strings.h"
-//TODO: #include <dactylogram.h>
+#include "../utils/dactylogram.h"
 
 namespace co_oCCur {
 
@@ -26,6 +27,7 @@ namespace co_oCCur {
         std::string m_OriginalSubtitleFile;
 
         std::vector<std::string> m_Fingerprints;
+        std::vector<std::vector<uint32_t>> m_Fingerprints_raw;
         std::vector<long int> m_FPTimestamps;
 
     public:
@@ -38,6 +40,7 @@ namespace co_oCCur {
         void createTempSRT(const std::vector<SubtitleItem*>& sub);
         void generateFingerprints();
         void AFInserter();
+        bool matches(int anchor, std::vector<uint32_t> testFP);
         void adjust(long int delta);
         long int seekAndCompare();
     };

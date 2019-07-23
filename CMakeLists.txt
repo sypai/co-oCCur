@@ -44,59 +44,59 @@ set(VADFiles
 add_library(webrtc ${VADFiles})
 set_target_properties(webrtc PROPERTIES FOLDER libs/lib_ext/webrtc)
 
-
-### FFmpeg audio processor
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
-
-find_package(FFmpeg REQUIRED)
-
-if(FFMPEG_LIBRARIES)
-    cmake_push_check_state(RESET)
-    set(CMAKE_REQUIRED_LIBRARIES ${FFMPEG_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} -lm)
-    check_function_exists(av_packet_unref HAVE_AV_PACKET_UNREF)
-    check_function_exists(av_frame_alloc HAVE_AV_FRAME_ALLOC)
-    check_function_exists(av_frame_free HAVE_AV_FRAME_FREE)
-    cmake_pop_check_state()
-endif()
-
-#set(AUDIO_PROCESSOR_LIB "avresample")
 #
-#if(AUDIO_PROCESSOR_LIB STREQUAL "avresample")
-#    if(FFMPEG_LIBAVRESAMPLE_FOUND)
-#        set(USE_AVRESAMPLE ON)
-#        set(AUDIO_PROCESSOR_LIBRARIES ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
-#        set(AUDIO_PROCESSOR_INCLUDE_DIRS ${FFMPEG_LIBAVRESAMPLE_INCLUDE_DIRS})
-#     endif()
+#### FFmpeg audio processor
+#set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+#
+#find_package(FFmpeg REQUIRED)
+#
+#if(FFMPEG_LIBRARIES)
+#    cmake_push_check_state(RESET)
+#    set(CMAKE_REQUIRED_LIBRARIES ${FFMPEG_LIBRARIES} -lm)
+#    check_function_exists(av_packet_unref HAVE_AV_PACKET_UNREF)
+#    check_function_exists(av_frame_alloc HAVE_AV_FRAME_ALLOC)
+#    check_function_exists(av_frame_free HAVE_AV_FRAME_FREE)
+#    cmake_pop_check_state()
 #endif()
-
-set(AUDIO_PROCESSOR_LIB "swresample")
-
-if(AUDIO_PROCESSOR_LIB STREQUAL "swresample")
-    if(FFMPEG_LIBSWRESAMPLE_FOUND)
-        set(USE_SWRESAMPLE ON)
-        set(AUDIO_PROCESSOR_LIBRARIES ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
-        set(AUDIO_PROCESSOR_INCLUDE_DIRS ${FFMPEG_LIBSWRESAMPLE_INCLUDE_DIRS})
-    endif()
-endif()
-
-include_directories(
-        ${FFMPEG_LIBAVFORMAT_INCLUDE_DIRS}
-        ${FFMPEG_LIBAVCODEC_INCLUDE_DIRS}
-        ${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
-        ${AUDIO_PROCESSOR_INCLUDE_DIRS}
-)
-
-set(audioProcessingLIBS
-        ${FFMPEG_LIBAVFORMAT_LIBRARIES}
-        ${FFMPEG_LIBAVCODEC_LIBRARIES}
-        ${FFMPEG_LIBAVUTIL_LIBRARIES}
-        ${AUDIO_PROCESSOR_LIBRARIES}
-        ${CMAKE_THREAD_LIBS_INIT}
-        )
-
-add_library(FFmpegFiles ${audioProcessingLIBS})
-set_target_properties(FFmpegFiles PROPERTIES LINKER_LANGUAGE C)
-target_link_libraries(FFmpegFiles ${audioProcessingLIBS})
+#
+##set(AUDIO_PROCESSOR_LIB "avresample")
+##
+##if(AUDIO_PROCESSOR_LIB STREQUAL "avresample")
+##    if(FFMPEG_LIBAVRESAMPLE_FOUND)
+##        set(USE_AVRESAMPLE ON)
+##        set(AUDIO_PROCESSOR_LIBRARIES ${FFMPEG_LIBAVRESAMPLE_LIBRARIES})
+##        set(AUDIO_PROCESSOR_INCLUDE_DIRS ${FFMPEG_LIBAVRESAMPLE_INCLUDE_DIRS})
+##     endif()
+##endif()
+#
+#set(AUDIO_PROCESSOR_LIB "swresample")
+#
+#if(AUDIO_PROCESSOR_LIB STREQUAL "swresample")
+#    if(FFMPEG_LIBSWRESAMPLE_FOUND)
+#        set(USE_SWRESAMPLE ON)
+#        set(AUDIO_PROCESSOR_LIBRARIES ${FFMPEG_LIBSWRESAMPLE_LIBRARIES})
+#        set(AUDIO_PROCESSOR_INCLUDE_DIRS ${FFMPEG_LIBSWRESAMPLE_INCLUDE_DIRS})
+#    endif()
+#endif()
+#
+#include_directories(
+#        ${FFMPEG_LIBAVFORMAT_INCLUDE_DIRS}
+#        ${FFMPEG_LIBAVCODEC_INCLUDE_DIRS}
+#        ${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
+#        ${AUDIO_PROCESSOR_INCLUDE_DIRS}
+#)
+#
+#set(audioProcessingLIBS
+#        ${FFMPEG_LIBAVFORMAT_LIBRARIES}
+#        ${FFMPEG_LIBAVCODEC_LIBRARIES}
+#        ${FFMPEG_LIBAVUTIL_LIBRARIES}
+#        ${AUDIO_PROCESSOR_LIBRARIES}
+#        ${CMAKE_THREAD_LIBS_INIT}
+#        )
+#
+#add_library(ffmpegfiles ${audioProcessingLIBS})
+#set_target_properties(ffmpegfiles PROPERTIES LINKER_LANGUAGE C)
+#target_link_libraries(ffmpegfiles ${audioProcessingLIBS})
 
 ## chromaprint for audiofingerprinting
 include_directories(libs/lib_ext/chromaprint)
@@ -108,22 +108,12 @@ set(kissfftFiles
         libs/lib_ext/chromaprint/vendor/kissfft/tools/kiss_fftr.c
         )
 
-#set(chromaprint_LINK_LIBS
-#        ${FFMPEG_LIBAVCODEC_LIBRARIES}
-#        ${FFMPEG_LIBAVUTIL_LIBRARIES}
+#set(audioFiles
+#        libs/lib_ext/chromaprint/src/audio/audio_slicer.h
+#        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_processor_swresample.h
+#        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_processor.h
+#        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_reader.h
 #        )
-#
-#include_directories(
-#        ${FFMPEG_LIBAVCODEC_INCLUDE_DIRS}
-#        ${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
-#)
-
-set(audioFiles
-        libs/lib_ext/chromaprint/src/audio/audio_slicer.h
-        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_processor_swresample.h
-        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_processor.h
-        libs/lib_ext/chromaprint/src/audio/ffmpeg_audio_reader.h
-        )
 
 set(avFiles
         libs/lib_ext/chromaprint/src/avresample/avcodec.h
@@ -197,7 +187,8 @@ set(chromaprintUtils
         libs/lib_ext/chromaprint/src/utils/scope_exit.h
         )
 
-add_library(chromaprint ${avFiles} ${audioFiles} ${kissfftFiles} ${chromaprintUtils} ${chromaprintFiles})
+#add_library(chromaprint ${avFiles} ${audioFiles} ${kissfftFiles} ${chromaprintUtils} ${chromaprintFiles})
+add_library(chromaprint ${avFiles} ${kissfftFiles} ${chromaprintUtils} ${chromaprintFiles})
 set_target_properties(chromaprint PROPERTIES FOLDER libs/lib_ext/chromaprint)
 
 
@@ -239,4 +230,5 @@ set(SourceFiles
         )
 
 add_executable(co_oCCur ${SourceFiles})
-target_link_libraries(co_oCCur PRIVATE webrtc FFmpegFiles chromaprint ccaligner ${EXTRA_FLAGS})
+target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})
+#target_link_libraries(co_oCCur webrtc ffmpegfiles chromaprint ccaligner ${EXTRA_FLAGS} zlib.a -lz)
