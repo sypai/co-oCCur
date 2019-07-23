@@ -51,7 +51,7 @@ void co_oCCur::ToolB::createTempSRT(const std::vector<SubtitleItem*>& sub)
 
 void co_oCCur::ToolB::createSubtitleString() {
 
-    std::cout << "Trying to create Subtitle String" << std::endl;
+    std::cout << "Trying to create Subtitle String..." << std::endl;
 
     SubtitleParserFactory *spf;
     spf = new SubtitleParserFactory(m_OriginalSubtitleFile);
@@ -79,6 +79,7 @@ void co_oCCur::ToolB::createSubtitleString() {
 
     std::cout << "Subtitle String: " << std::endl;
     int i = 0;
+
     for (int j = 0; j < sub.at(sub.size() - 1)->getEndTime(); j += m_SegmentWindow)
     {
 //        std::cout << j << "ms : " << substring.at(i) << std::endl;
@@ -89,7 +90,7 @@ void co_oCCur::ToolB::createSubtitleString() {
 
 void co_oCCur::ToolB::createAudioString()
 {
-    std::cout << "\n\nTrying to create Audio String" << std::endl;
+    std::cout << "\n\nTrying to create Audio String..." << std::endl;
 
     std::vector<char> audioString;
 
@@ -113,6 +114,8 @@ void co_oCCur::ToolB::createAudioString()
 
 long int co_oCCur::ToolB::align()
 {
+    std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
+
     //TODO: Alignment of the two strings is the task
     // for CODING PHASE 3.
 
@@ -134,7 +137,6 @@ void co_oCCur::ToolB::adjust(long int delta)
 
     DEBUG << "SYNCHRONIZATION DONE" ;
     DEBUG << "co-oCCur subtitle document created." ;
-    DEBUG << "co-oCCur" << m_OriginalSubtitleFile;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);

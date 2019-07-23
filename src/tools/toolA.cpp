@@ -186,27 +186,26 @@ long int co_oCCur::ToolA::seekAndCompare() {
 //    scan_modified->collectFingerprints(&modifiedAudioFingerprints);
     modifiedAudioFingerprints = scan_modified->getFingerprints();
 
-
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
     long int delta = 0; // The constant temporal offset
 
     std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
 
-    for (int anchor_no = 1; anchor_no < 4; anchor_no++) {
+    for (int anchor_no = 0; anchor_no < 3; anchor_no++) {
 //        long int fpDuration = 1; // Default FP duration in seconds
 //        long int reference = 0;
 
         long int seekOffset = m_FPTimestamps[anchor_no] / 1000;
         long int tempSeekOffset = seekOffset;
-        int max_search_window = 20;
+        int max_search_window = 60;
         int local_search_window = 1; //in seconds
-        int attempts_rem = 20;
+        int attempts_rem = max_search_window;
 
         while (attempts_rem > 0) {
             auto testFP = modifiedAudioFingerprints[tempSeekOffset];
 
-            if (attempts_rem == 20 && matches(anchor_no, testFP)) {
+            if (attempts_rem == 60 && matches(anchor_no, testFP)) {
                 return 0;
             } else if (matches(anchor_no, testFP)) {
                 delta = (max_search_window - attempts_rem) * 1000;
@@ -215,9 +214,8 @@ long int co_oCCur::ToolA::seekAndCompare() {
             tempSeekOffset -= local_search_window;
             attempts_rem--;
         }
-
-        return delta;
     }
+    return delta;
 }
 
 void co_oCCur::ToolA::adjust(long int delta)
@@ -233,7 +231,6 @@ void co_oCCur::ToolA::adjust(long int delta)
 
     DEBUG << "SYNCHRONIZATION DONE" ;
     DEBUG << "co-oCCur subtitle document created." ;
-//    DEBUG << "co-oCCur_" << m_OriginalSubtitleFile;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);
@@ -243,8 +240,6 @@ void co_oCCur::ToolA::adjust(long int delta)
 
 void co_oCCur::ToolA::sync()
 {
-//    generateFingerprints();
-//    AFInserter();
     auto delta = seekAndCompare();
     adjust(delta);
 }
