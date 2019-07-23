@@ -56,6 +56,7 @@ namespace co_oCCur{
         void collectFingerprints();
 //        void collectFingerprints(std::vector<std::vector<uint32_t>>* array);
         std::vector<std::vector<uint32_t> > getFingerprints() const ;
+//        void setFingerprints(std::vector<uint32_t > * array);
         double getAudioLength_secs() const ;
         long int getAudioLength_ms() const ;
 

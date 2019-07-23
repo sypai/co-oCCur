@@ -16,6 +16,7 @@
 #define SIFT_SRT_H
 
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -885,17 +886,21 @@ inline void co_oCCurEditor::EnrichSRT(std::string fileName, std::vector<std::str
         writeToFile << "END"<< std::endl;
         writeToFile << std::endl;
     }
-
+    writeToFile.close();
 }
 
 inline void co_oCCurEditor::AdjustSRT(const std::string& FileName, long int delay, bool inc_or_dec)
 {
     std::vector<std::string> temp;
     temp = split(FileName, '.', temp);
+    std::vector<std::string> temp1;
+    temp1 = split(FileName, '/', temp1);
     std::string adjustedFileName = temp[0] + ".srt";
+    std::string co_oCCurFileName = "../co_oCCur-" + temp1[temp1.size() - 1];
+
     std::ofstream writeToFile;
 
-    writeToFile.open(adjustedFileName);
+    writeToFile.open(co_oCCurFileName);
 
     for (SubtitleItem* element : m_SubtitleItems)
     {

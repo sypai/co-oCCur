@@ -287,7 +287,15 @@ void co_oCCur::Dactylogram::igniteChromaprint()
         exit(2);
     }
 }
-
+//void co_oCCur::Dactylogram::setFingerprints(std::vector<uint32_t> *array)
+//{
+////    for (int i = 0; i < m_NumberOfSeconds; i++)
+////    {
+////        int j = 0;
+////        while(j < array[i].size())
+////        m_AudioFingerprints[i].emplace_back(&array[i][j]);
+////    }
+//}
 void co_oCCur::Dactylogram::collectFingerprints()
 //void co_oCCur::Dactylogram::collectFingerprints(std::vector<std::vector<uint32_t>> * array)
 {
@@ -302,7 +310,7 @@ void co_oCCur::Dactylogram::collectFingerprints()
 
     std::vector<uint32_t> AudioFingerprints;
 //    auto array = new std::vector<uint32_t>[m_NumberOfSeconds];
-    std::vector<std::vector<uint32_t> > array;
+//     std::vector<uint32_t> array[m_NumberOfSeconds];
 
     using namespace chromaprint;
     uint32_t *raw_fp_data = nullptr;
@@ -316,16 +324,19 @@ void co_oCCur::Dactylogram::collectFingerprints()
 
     SCOPE_EXIT(chromaprint_dealloc(raw_fp_data));
 
+//    raw_fp_size = 10;
     AudioFingerprints.reserve(raw_fp_size);
     for (int i = 0; i < raw_fp_size; i++)
     {
         AudioFingerprints.emplace_back(raw_fp_data[i]);
     }
 
-    array.reserve(m_NumberOfSeconds);
+//    m_NumberOfSeconds =15;
+    m_AudioFingerprints.reserve(m_NumberOfSeconds);
     int j = 0;
     for (int i = 1; i < m_NumberOfSeconds; i++)
     {
+        std::vector<uint32_t > array ;
         int count = 0;
         while(j < raw_fp_size)
         {
@@ -333,13 +344,14 @@ void co_oCCur::Dactylogram::collectFingerprints()
             {
                 if(count < 8)
                 {
-                    array[i-1].emplace_back(AudioFingerprints[j]);
+                    array.emplace_back(AudioFingerprints[j]);
                     j++;
                     count++;
                     continue;
                 }
                 else
                 {
+                    m_AudioFingerprints.emplace_back(array);
                     break;
                 }
             }
@@ -348,13 +360,14 @@ void co_oCCur::Dactylogram::collectFingerprints()
             {
                 if(count < 9)
                 {
-                    array[i-1].emplace_back(AudioFingerprints[j]);
+                    array.emplace_back(AudioFingerprints[j]);
                     j++;
                     count++;
                     continue;
                 }
                 else
                 {
+                    m_AudioFingerprints.emplace_back(array);
                     break;
                 }
             }
