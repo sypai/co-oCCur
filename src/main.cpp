@@ -4,8 +4,6 @@
 * Github: https://github.com/sypai
 */
 #include "co_occur.h"
-#include "../libs/lib_ext/chromaprint/src/chromaprint.h"
-#include "utils/dactylogram.h"
 
 void CLIHeader()
 {
@@ -97,15 +95,6 @@ int main(int argc, char *argv[])
     CLIHeader();
     ParseOptions(argc, argv);
     CLIFooter();
-
-////    igniteChromaprint("/co-oCCur/install/TestFiles/WavAudio/example1.wav");
-//
-//    co_oCCur::Dactylogram *fp;
-//    fp = new co_oCCur::Dactylogram("/home/sypai/co-oCCur/install/TestFiles/WAVAudio/example1.wav");
-//
-////    fp->readAudio();
-//    fp->igniteChromaprint();
-//    fp->collectFingerprints();
 
     return 0;
 }
