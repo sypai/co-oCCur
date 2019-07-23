@@ -10,7 +10,7 @@ void CLIHeader()
     std::cout << "co_oCCur: Subtitle Synchronization tool, Suyash Bajpai." << std::endl;
     std::cout << "Parent Organization: CCExtractor Development" << std::endl;
     std::cout << "Mentor: Carlos Fernandez Sans, Google Summer of Code 2019." << std::endl;
-    std::cout << "-------------------------------------------------------------" << std::endl;
+    std::cout << "-------------------------------------------------------------\n" << std::endl;
 }
 
 void PrintUsage()
@@ -85,7 +85,7 @@ int ParseOptions(int arg_c, char* arg_v[])
 
 void CLIFooter()
 {
-    std::cout << "-------------------------------------------------------------" << std::endl;
+    std::cout << "\n-------------------------------------------------------------" << std::endl;
     std::cout << "Issues? Open a ticket here" << std::endl;
     std::cout << "https://github.com/sypai/co-oCCur/issues" << std::endl;
 }
