@@ -158,7 +158,7 @@ void co_oCCur::ToolA::generateFingerprints()
     m_Fingerprints.emplace_back(fp3_base64);
     m_FPTimestamps.emplace_back(FPTimestamp);
 
-    DEBUG << "{\"timestamp: \"" << FPTimestamp << ", \"fingerprint: \"" << "\"" << fp3_base64 << "\"}";
+    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp3_base64 << "\"}";
 
     std::cout << "\nFingerprints Ready!!\n";
 
@@ -186,7 +186,7 @@ long int co_oCCur::ToolA::seekAndCompare() {
 //    scan_modified->collectFingerprints(&modifiedAudioFingerprints);
     modifiedAudioFingerprints = scan_modified->getFingerprints();
 
-    std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
+    std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED..." << std::endl;
 
     long int delta = 0; // The constant temporal offset
 
@@ -229,7 +229,7 @@ void co_oCCur::ToolA::adjust(long int delta)
     std::vector<SubtitleItem *> sub;
     sub = parser->getSubtitles();
 
-    DEBUG << "SYNCHRONIZATION DONE" ;
+    std::cout << "SYNCHRONIZATION DONE\n" ;
     DEBUG << "co-oCCur subtitle document created." ;
 
     co_oCCurEditor *edit;
