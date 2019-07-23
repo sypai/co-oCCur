@@ -127,7 +127,7 @@ The input subtitle file should be a clean and proper SubRip (SRT) file.
 ./co_oCCur
 ```
   OUT:
-  ![Run without arguments](https://raw.githubuser.com/sypai/imageBazar/blob/master/testrun1.png)
+  ![Run without arguments](https://raw.githubusercontent.com/sypai/co-oCCur/master/demo/media/cooccur_wo_args.png)
 
 * IN:
 ```bash
