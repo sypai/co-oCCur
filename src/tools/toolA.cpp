@@ -122,7 +122,7 @@ void co_oCCur::ToolA::generateFingerprints()
     m_FPTimestamps.emplace_back(FPTimestamp);
 
     std::cout << "Fingerprint anchors: " << std::endl;
-    DEBUG << "{\"timestamp: \"" << FPTimestamp << ", \"fingerprint: \"" << "\"" << fp_base64 << "\"}";
+    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp_base64 << "\"}";
 
     //Fingerprint2
     FPTimestamp = originalAudioLength_ms / 2;
@@ -140,7 +140,7 @@ void co_oCCur::ToolA::generateFingerprints()
     m_Fingerprints.emplace_back(fp2_base64);
     m_FPTimestamps.emplace_back(FPTimestamp);
 
-    DEBUG << "{\"timestamp: \"" << FPTimestamp << ", \"fingerprint: \"" << "\"" << fp2_base64 << "\"}";
+    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp2_base64 << "\"}";
 
     //Fingerprint3
     FPTimestamp = (3 * originalAudioLength_ms) / 4;
