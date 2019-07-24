@@ -42,7 +42,7 @@ int ParseOptions(int arg_c, char* arg_v[])
         return 11;
     }
 
-    for (int i=2; i<arg_c; i++)
+    for (int i=1; i<arg_c; i++)
     {
         std::string parameter(arg_v[i]);
 
