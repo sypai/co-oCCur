@@ -101,7 +101,7 @@ void co_oCCur::ToolB::createAudioString()
     std::cout << "\nAudio String: " << std::endl;
     audioString = runVAD(samples, m_SegmentWindow);
 
-    DEBUG << "Audio String Created\n";
+    DEBUG << "\nAudio String Created\n";
 
     m_AudioString = audioString;
 
@@ -114,7 +114,7 @@ void co_oCCur::ToolB::createAudioString()
 
 long int co_oCCur::ToolB::align()
 {
-    std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
+    std::cout << "AUDIO AND SUBTITLES ARE BEING SYNCHRONIZED.." << std::endl;
 
     //TODO: Alignment of the two strings is the task
     // for CODING PHASE 3.

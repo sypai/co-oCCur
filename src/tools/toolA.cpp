@@ -197,6 +197,10 @@ long int co_oCCur::ToolA::seekAndCompare() {
 //        long int reference = 0;
 
         long int seekOffset = m_FPTimestamps[anchor_no] / 1000;
+
+        if(seekOffset < scan_modified->getAudioLength_ms())
+            break;
+
         long int tempSeekOffset = seekOffset;
         int max_search_window = 60;
         int local_search_window = 1; //in seconds
