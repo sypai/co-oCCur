@@ -162,18 +162,10 @@ void co_oCCur::ToolA::generateFingerprints()
 
     std::cout << "\nFingerprints Ready!!\n";
 
-    //    for (int i=0; i<3; i++)
-//    {
-//        DEBUG << "FINGERPRINT: " << i ;
-//        DEBUG << "TIMESTAMP: " << m_FPTimestamps[i] ;
-//        DEBUG <<  m_Fingerprints[i] << "\n";
-//    }
-//
-//    modifiedAudio->read();
-
 }
 
-long int co_oCCur::ToolA::seekAndCompare() {
+long int co_oCCur::ToolA::align() {
+
     generateFingerprints();
     AFInserter();
 
@@ -183,18 +175,20 @@ long int co_oCCur::ToolA::seekAndCompare() {
     co_oCCur::Dactylogram *scan_modified;
     scan_modified = new Dactylogram(m_ModifiedAudioFile);
     scan_modified->collectFingerprints();
-//    scan_modified->collectFingerprints(&modifiedAudioFingerprints);
     modifiedAudioFingerprints = scan_modified->getFingerprints();
 
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED..." << std::endl;
 
     long int delta = 0; // The constant temporal offset
 
+    auto FPTimestamps = m_FPTimestamps;
+
     std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
 
-    for (int anchor_no = 0; anchor_no < 3; anchor_no++) {
-//        long int fpDuration = 1; // Default FP duration in seconds
-//        long int reference = 0;
+    for (int anchor_no = 0; anchor_no < 3; anchor_no++)
+    {
+        long int FPDuration = 1; // Default FP duration in seconds
+        long int reference = 0;
 
         long int seekOffset = m_FPTimestamps[anchor_no] / 1000;
 
@@ -202,21 +196,46 @@ long int co_oCCur::ToolA::seekAndCompare() {
             break;
 
         long int tempSeekOffset = seekOffset;
-        int max_search_window = 60;
-        int local_search_window = 1; //in seconds
-        int attempts_rem = max_search_window;
 
-        while (attempts_rem > 0) {
+        for (int attempt = 1; attempt < 3; attempt ++)
+        {
             auto testFP = modifiedAudioFingerprints[tempSeekOffset];
 
-            if (attempts_rem == 60 && matches(anchor_no, testFP)) {
-                return 0;
-            } else if (matches(anchor_no, testFP)) {
-                delta = (max_search_window - attempts_rem) * 1000;
-            }
+            if(matches(anchor_no, testFP))
+            {
+                delta = matchOffset(anchor_no, testFP);
+                if (delta != 0)
+                {
+                    for (int j = anchor_no + 1; j < 3; j++)
+                    {
+                        FPTimestamps[j] += delta;
+                    }
+                }
 
-            tempSeekOffset -= local_search_window;
-            attempts_rem--;
+                match [anchor_no] = attempt == 1 ? "MATCH" : "LOCAL_MATCH";
+                break;
+            }
+/*//        int max_search_window = 60;
+//        int local_search_window = 1; //in seconds
+//        int attempts_rem = max_search_window;
+//
+//        while (attempts_rem > 0) {
+//            auto testFP = modifiedAudioFingerprints[tempSeekOffset];
+//
+//            if (attempts_rem == 60 && matches(anchor_no, testFP)) {
+//                return 0;
+//            } else if (matches(anchor_no, testFP)) {
+//                delta = (max_search_window - attempts_rem) * 1000;
+//            }
+//
+//            tempSeekOffset -= local_search_window;
+//            attempts_rem--; */
+
+            else
+            {
+                long int LocalSearchInterval = 20; /*in seconds*/
+                seekOffset = std::max(seekOffset - LocalSearchInterval / 2, 0);
+            }
         }
     }
     return delta;
@@ -244,7 +263,7 @@ void co_oCCur::ToolA::adjust(long int delta)
 
 void co_oCCur::ToolA::sync()
 {
-    auto delta = seekAndCompare();
+    auto delta = align();
     adjust(delta);
 }
 

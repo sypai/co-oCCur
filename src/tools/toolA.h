@@ -42,7 +42,7 @@ namespace co_oCCur {
         void AFInserter();
         bool matches(int anchor, std::vector<uint32_t> testFP);
         void adjust(long int delta);
-        long int seekAndCompare();
+        long int align();
     };
 
 
