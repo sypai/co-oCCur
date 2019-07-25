@@ -184,10 +184,13 @@ class co_oCCurParser : public SubtitleItem
 private:
     int m_SegmentWindow;
     std::vector<SubtitleItem*> m_SubtitleItems;
+    int m_TotalSubtitles;
 
 public:
     std::vector<std::string> getFingerprints();
     std::vector<long int> getFPTimestamps();
+    int getTotalSubtitles();
+
     std::vector<char> SpeechActivityDetection(int SegmentWindow);
 
     explicit co_oCCurParser(std::vector<SubtitleItem*> sub);
@@ -953,6 +956,11 @@ inline std::vector<std::string> co_oCCurParser::getFingerprints()
 inline std::vector<long int> co_oCCurParser::getFPTimestamps()
 {
     return m_FPTimestamps;
+}
+
+inline int co_oCCurParser::getTotalSubtitles()
+{
+    return m_SubtitleItems.size();
 }
 
 inline std::vector<char> co_oCCurParser::SpeechActivityDetection(int SegmentWindow)

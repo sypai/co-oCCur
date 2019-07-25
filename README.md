@@ -113,7 +113,7 @@ Make sure the audio is uncompressed raw PCM (16-bit signed int), mono sampled at
 Using [ffmpeg](https://ffmpeg.org/documentation.html) you can run:
 
 ```bash
-ffmpeg -i inputVideo.ts -acodec pcm_s16le -ac 1 -ar 16000 -o audioName.wav 
+ffmpeg -i inputVideo.ts -acodec pcm_s16le -ac 1 -ar 16000 audioName.wav 
 ```
 
 * Subtitle Files

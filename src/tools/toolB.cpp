@@ -49,10 +49,11 @@ void co_oCCur::ToolB::createTempSRT(const std::vector<SubtitleItem*>& sub)
     myfile.close();
 }
 
-void co_oCCur::ToolB::createSubtitleString() {
+int co_oCCur::ToolB::createSubtitleString() {
 
     std::cout << "Trying to create Subtitle String..." << std::endl;
 
+    DEBUG << "Opening .srt file: " << m_OriginalSubtitleFile;
     SubtitleParserFactory *spf;
     spf = new SubtitleParserFactory(m_OriginalSubtitleFile);
 
@@ -62,15 +63,18 @@ void co_oCCur::ToolB::createSubtitleString() {
     std::vector<SubtitleItem *> sub;
     sub = parser->getSubtitles();
 
-    DEBUG << "A Temporary file 'temp.srt' created.";
     createTempSRT(sub);
-
-//    DEBUG << "Enriched subtitle document created.";
-//    DEBUG << "rich_" << m_OriginalSubtitleFile;
 
     co_oCCurParser *parse;
     parse = new co_oCCurParser(sub);
 
+    if (parse->getTotalSubtitles() < 1)
+    {
+        DEBUG << "Selected SRT file has no subtitles or the file doesn't exist.";
+        return 0;
+    }
+
+    DEBUG << "A Temporary file 'temp.srt' created.";
     DEBUG << "Subtitles are being segmented into a " << m_SegmentWindow <<"ms window";
     auto substring = parse->SpeechActivityDetection(m_SegmentWindow);
 
@@ -86,6 +90,8 @@ void co_oCCur::ToolB::createSubtitleString() {
         std::cout << m_SubtitleString[i];
         i += 1;
     }
+
+    return 1;
 }
 
 void co_oCCur::ToolB::createAudioString()
@@ -143,9 +149,14 @@ void co_oCCur::ToolB::adjust(long int delta)
     edit->AdjustSRT(m_OriginalSubtitleFile, delta, true);
 }
 
-void co_oCCur::ToolB::sync()
+int co_oCCur::ToolB::sync()
 {
-    createSubtitleString();
+    if(!createSubtitleString())
+    {
+        std::cout << "Choose a valid SRT file";
+        return 0;
+    }
+
     createAudioString();
     auto delta = align();
     adjust(delta);
