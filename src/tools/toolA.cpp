@@ -179,66 +179,62 @@ long int co_oCCur::ToolA::align() {
 
     std::cout << "\nAUDIO AND SUBTITLES ARE BEING SYNCHRONIZED..." << std::endl;
 
-    long int delta = 0; // The constant temporal offset
-
-    auto FPTimestamps = m_FPTimestamps;
-
-    std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
-
-    for (int anchor_no = 0; anchor_no < 3; anchor_no++)
-    {
-        long int FPDuration = 1; // Default FP duration in seconds
-        long int reference = 0;
-
-        long int seekOffset = m_FPTimestamps[anchor_no] / 1000;
-
-        if(seekOffset < scan_modified->getAudioLength_ms())
-            break;
-
-        long int tempSeekOffset = seekOffset;
-
-        for (int attempt = 1; attempt < 3; attempt ++)
-        {
-            auto testFP = modifiedAudioFingerprints[tempSeekOffset];
-
-            if(matches(anchor_no, testFP))
-            {
-                delta = matchOffset(anchor_no, testFP);
-                if (delta != 0)
-                {
-                    for (int j = anchor_no + 1; j < 3; j++)
-                    {
-                        FPTimestamps[j] += delta;
-                    }
-                }
-
-                match [anchor_no] = attempt == 1 ? "MATCH" : "LOCAL_MATCH";
-                break;
-            }
-/*//        int max_search_window = 60;
-//        int local_search_window = 1; //in seconds
-//        int attempts_rem = max_search_window;
+//    long int delta = 0; // The constant temporal offset
 //
-//        while (attempts_rem > 0) {
+//    auto FPTimestamps = m_FPTimestamps;
+//
+//    std::vector<std::string> match = {"NO_MATCH", "NO_MATCH", "NO_MATCH"};
+//
+//    for (int anchor_no = 0; anchor_no < 3; anchor_no++)
+//    {
+//        long int FPDuration = 1; // Default FP duration in seconds
+//        long int reference = 0;
+//
+//        long int seekOffset = m_FPTimestamps[anchor_no] / 1000;
+//
+//        if(seekOffset < scan_modified->getAudioLength_ms())
+//            break;
+//
+//        long int tempSeekOffset = seekOffset;
+//
+//        for (int attempt = 1; attempt < 3; attempt ++)
+//        {
 //            auto testFP = modifiedAudioFingerprints[tempSeekOffset];
+//            if(matches(anchor_no, testFP)) {
+//                delta = matchOffset(anchor_no, testFP);
+//                if (delta != 0) {
+//                    for (int j = anchor_no + 1; j < 3; j++) {
+//                        FPTimestamps[j] += delta;
+//                    }
+//                }
 //
-//            if (attempts_rem == 60 && matches(anchor_no, testFP)) {
-//                return 0;
-//            } else if (matches(anchor_no, testFP)) {
-//                delta = (max_search_window - attempts_rem) * 1000;
+//                match[anchor_no] = attempt == 1 ? "MATCH" : "LOCAL_MATCH";
+//                break;
 //            }
-//
-//            tempSeekOffset -= local_search_window;
-//            attempts_rem--; */
+///*//        int max_search_window = 60;
+////        int local_search_window = 1; //in seconds
+////        int attempts_rem = max_search_window;
+////
+////        while (attempts_rem > 0) {
+////            auto testFP = modifiedAudioFingerprints[tempSeekOffset];
+////
+////            if (attempts_rem == 60 && matches(anchor_no, testFP)) {
+////                return 0;
+////            } else if (matches(anchor_no, testFP)) {
+////                delta = (max_search_window - attempts_rem) * 1000;
+////            }
+////
+////            tempSeekOffset -= local_search_window;
+////            attempts_rem--; */
+//            else{
+//                long int LocalSearchInterval = 20; /*in seconds*/
+//                seekOffset = MAX(seekOffset - LocalSearchInterval / 2, 0);
+//            }
+//        }
+//    }
+//    return delta;
 
-            else
-            {
-                long int LocalSearchInterval = 20; /*in seconds*/
-                seekOffset = std::max(seekOffset - LocalSearchInterval / 2, 0);
-            }
-        }
-    }
-    return delta;
+    return 0;
 }
 
 void co_oCCur::ToolA::adjust(long int delta)

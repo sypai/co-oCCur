@@ -286,6 +286,11 @@ void co_oCCur::Dactylogram::igniteChromaprint()
         std::cout << "[ERROR] : Could not finish the fingerprinting process." << std::endl;
         exit(2);
     }
+//
+//    int a = chromaprint_get_item_duration_ms(m_ctx);
+//
+//    DEBUG << a;
+
 }
 //void co_oCCur::Dactylogram::setFingerprints(std::vector<uint32_t> *array)
 //{
