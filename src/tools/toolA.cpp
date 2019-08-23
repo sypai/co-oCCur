@@ -85,7 +85,7 @@ void co_oCCur::ToolA::AFInserter()
     edit->EnrichSRT("temp.srt", m_Fingerprints, m_FPTimestamps);
 }
 
-void co_oCCur::ToolA::generateFingerprints()
+void co_oCCur::ToolA:: generateFingerprints()
 {
     std::cout << "Processing Original Audio" << std::endl;
 
@@ -259,7 +259,12 @@ void co_oCCur::ToolA::adjust(long int delta)
 
 void co_oCCur::ToolA::sync()
 {
-    auto delta = align();
-    adjust(delta);
+//    auto delta = align();
+//    adjust(delta);
+
+    co_oCCur::AlignFP *co;
+    co = new co_oCCur::AlignFP();
+    co->brum_brum();
+    delete co;
 }
 

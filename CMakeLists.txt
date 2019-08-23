@@ -207,6 +207,21 @@ set(ReadAudio
 add_library(ccaligner ${ReadAudio})
 set_target_properties(ccaligner PROPERTIES FOLDER libs/lib_ext/CCAligner)
 
+## NumCpp
+
+include_directories(libs/lib_ext/NumCpp/NumCpp/ libs/lib_ext/NumCpp/)
+#set(numpy
+#        libs/lib_ext/NumCpp/NumCpp.h
+#        )
+set(Boost_USE_STATIC_LIBS TRUE)
+find_package( Boost REQUIRED COMPONENTS
+        system
+        filesystem
+        )
+
+include_directories(${Boost_INCLUDE_DIRS})
+#target_libraries(Boost::system Boost::filesystem)
+
 ###### END INCLUDE libs
 
 ###### INCLUDE co-oCCur sources
@@ -220,15 +235,17 @@ set(SourceFiles
         src/utils/base64Strings.cpp
         src/utils/audioSegmentation.h
         src/utils/audioSegmentation.cpp
-        src/tools/toolA.cpp
-        src/tools/toolA.h
-        src/tools/toolB.cpp
-        src/tools/toolB.h
-        src/co_occur.h
-        src/co_occur.cpp
+#        src/tools/toolA.cpp
+#        src/tools/toolA.h
+#        src/tools/toolB.cpp
+#        src/tools/toolB.h
+#        src/co_occur.h
+#        src/co_occur.cpp
+        src/utils/matchFP.cpp src/utils/matchFP.h src/utils/align_fp.cpp
         src/main.cpp
-        )
+        src/utils/rough.cpp src/utils/align_the_fingerprints.cpp src/utils/align_the_fingerprints.h)
 
 add_executable(co_oCCur ${SourceFiles})
-target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})
+#target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})
+target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS} Boost::system Boost::filesystem)
 #target_link_libraries(co_oCCur webrtc ffmpegfiles chromaprint ccaligner ${EXTRA_FLAGS} zlib.a -lz)

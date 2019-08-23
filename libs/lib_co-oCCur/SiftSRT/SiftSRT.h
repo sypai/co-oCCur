@@ -206,18 +206,23 @@ private:
     std::string m_FileName;
     std::vector<SubtitleItem*> m_SubtitleItems;
     std::vector<long int> m_StartTimeArray;
+    std::vector<long int> m_comm_seg;
+    std::vector<long int> m_cont_seg;
 
 public:
     void EnrichSRT(std::string FileName, std::vector<std::string> fingerprints, std::vector<long int> FPTimestamps);
     void AdjustSRT(const std::string& FileName, long int delay, bool inc_or_dec);
+    void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments);
 
     explicit co_oCCurEditor(std::vector<SubtitleItem*> sub);
     ~co_oCCurEditor();
 
 private:
+    int locate(long int num);
     bool IsInRange(long int num, long int lower, long int upper);
     int indexOf(SubtitleItem* sub);
     void getStartTimeArray();
+    int getIndex(std::vector<long int> StartTimeArray, long int low, long int high, long FPTimestamp);
     int getIndex(std::vector<long int> StartTimeArray, int low, int high, long FPTimestamp);
 };
 
@@ -353,7 +358,10 @@ inline void SubRipParser::parse(std::string fileName)
                 if (!completeLine.empty())
                     completeLine += " ";
 
-                completeLine += line;
+                if(completeLine.empty())
+                    completeLine += line;
+                else
+                    completeLine += "\n" + line;
             }
 
             turn++;
@@ -806,6 +814,36 @@ inline int co_oCCurEditor::getIndex(std::vector<long int> StartTimeArray, int lo
     return getIndex(StartTimeArray, mid + 1, high,FPTimestamp);
 }
 
+inline int co_oCCurEditor::getIndex(std::vector<long int> StartTimeArray, long int low, long int high, long int FPTimestamp)
+{
+    if (low > high)
+        return -1;
+
+    // If last element is smaller than x
+    if (FPTimestamp >= StartTimeArray.at(high))
+        return high;
+
+    // Find the middle point
+    long int mid = (low+high)/2;
+
+    // If middle point is FPTimestamp.
+    if (StartTimeArray.at(mid) == FPTimestamp)
+        return mid;
+
+    // If FPTimestamp lies between mid-1 and mid
+    if (mid > 0 && StartTimeArray.at(mid-1) <= FPTimestamp && FPTimestamp < StartTimeArray.at(mid))
+        return mid-1;
+
+    // If FPTimestamp is smaller than mid, FPTimestamp
+    // must be in left half.
+    if (FPTimestamp < StartTimeArray.at(mid))
+        return getIndex(StartTimeArray, low, mid - 1, FPTimestamp);
+
+    // If mid-1 is not FPTimestamp and FPTimestamp is
+    // greater than StartTimeArray[mid],
+    return getIndex(StartTimeArray, mid + 1, high,FPTimestamp);
+}
+
 
 inline void co_oCCurEditor::EnrichSRT(std::string fileName, std::vector<std::string> fingerprints, std::vector<long int> FPTimestamps)
 {
@@ -933,6 +971,66 @@ inline void co_oCCurEditor::AdjustSRT(const std::string& FileName, long int dela
         writeToFile << std::endl;
     }
 
+}
+
+inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vector<std::vector<long int> > &Segments)
+{
+    std::vector<std::string> temp;
+    temp = split(FileName, '.', temp);
+    std::vector<std::string> temp1;
+    temp1 = split(FileName, '/', temp1);
+    std::string adjustedFileName = temp[0] + ".srt";
+    std::string co_oCCurFileName = "../co_oCCur-" + temp1[temp1.size() - 1];
+
+    std::ofstream writeToFile;
+
+    writeToFile.open(co_oCCurFileName);
+
+    std::vector<long int> comm_seg;
+//    std::vector<long int> cont_seg;
+//
+    for(const auto & Segment : Segments)
+    {
+            comm_seg.emplace_back(Segment[1]);
+    }
+
+    m_comm_seg = comm_seg;
+//    m_cont_seg = cont_seg;
+
+    int subNo = 0;
+    for (SubtitleItem* element : m_SubtitleItems)
+    {
+//        int subNo = element->getSubtitleNumber();
+
+        long int org_startTime = element->getStartTime();
+        long int mod_startTime = element->getStartTime();
+        long int org_endTime = element->getEndTime();
+        long int mod_endTime = element->getEndTime();
+
+        int index = getIndex(m_comm_seg, 0, m_comm_seg.size()-1, org_startTime) + 1;
+        if(Segments[index][2] == 0)
+        {
+            // Commercial segment
+            continue;
+        }
+        if(Segments[index][2] == 1)
+        {
+            auto delta = Segments[index - 1][1] - Segments[index - 1][0];
+            subNo++;
+            mod_startTime = org_startTime - delta;
+            mod_endTime = org_endTime - delta;
+        }
+
+        std::string StartTimeString = MSToSRTTime(mod_startTime);
+        std::string EndTimeString = MSToSRTTime(mod_endTime);
+
+        std::string payload = element->getText();
+
+        writeToFile << subNo << std::endl;
+        writeToFile << StartTimeString << " --> " << EndTimeString << std::endl;
+        writeToFile << payload << std::endl;
+        writeToFile << std::endl;
+    }
 }
 
 inline co_oCCurEditor::~co_oCCurEditor()

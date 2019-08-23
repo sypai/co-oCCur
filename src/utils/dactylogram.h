@@ -47,6 +47,7 @@ namespace co_oCCur{
         long int m_NumberOfMilliSeconds;
         unsigned long int m_temp_sample_num;
         std::vector<std::vector<uint32_t> > m_AudioFingerprints;
+        std::vector<uint32_t> m_AllFingerprints;
         ChromaprintContext *m_ctx;
 
     public:
@@ -56,6 +57,7 @@ namespace co_oCCur{
         void collectFingerprints();
 //        void collectFingerprints(std::vector<std::vector<uint32_t>>* array);
         std::vector<std::vector<uint32_t> > getFingerprints() const ;
+        std::vector<uint32_t> getAllFingerprints() const ;
 //        void setFingerprints(std::vector<uint32_t > * array);
         double getAudioLength_secs() const ;
         long int getAudioLength_ms() const ;

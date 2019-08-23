@@ -321,6 +321,8 @@ void co_oCCur::Dactylogram::collectFingerprints()
     uint32_t *raw_fp_data = nullptr;
     int raw_fp_size = 0;
 
+//    std::cout << chromaprint_get_algorithm(m_ctx);
+
     if (!chromaprint_get_raw_fingerprint(m_ctx, &raw_fp_data, &raw_fp_size))
     {
         std::cout << "[ERROR] : Could not receive the fingerprints." << std::endl;
@@ -336,6 +338,7 @@ void co_oCCur::Dactylogram::collectFingerprints()
         AudioFingerprints.emplace_back(raw_fp_data[i]);
     }
 
+    m_AllFingerprints = AudioFingerprints;
 //    m_NumberOfSeconds =15;
     m_AudioFingerprints.reserve(m_NumberOfSeconds);
     int j = 0;
@@ -394,6 +397,11 @@ void co_oCCur::Dactylogram::collectFingerprints()
 std::vector<std::vector<uint32_t> > co_oCCur::Dactylogram::getFingerprints() const
 {
     return m_AudioFingerprints;
+}
+
+std::vector<uint32_t> co_oCCur::Dactylogram::getAllFingerprints() const
+{
+    return m_AllFingerprints;
 }
 
 double co_oCCur::Dactylogram::getAudioLength_secs() const
