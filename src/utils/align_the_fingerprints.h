@@ -44,6 +44,7 @@ namespace co_oCCur {
         std::vector<uint32_t> m_fp1, m_fp2;
         float m_fp1_length, m_fp2_length;
         std::vector<std::vector<long int> > m_Segments;
+        std::vector<std::vector<long int> > m_InsideSegment;
         uint32_t m_curr_hash;
         double m_secs;
         bool m_over;

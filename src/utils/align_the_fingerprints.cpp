@@ -375,9 +375,9 @@ bool co_oCCur::AlignFP::freqNot1(const std::vector<double> &InVector)
 
 co_oCCur::AlignFP::AlignFP()
 {
-    m_OriginalAudioFile = "/home/sypai/co-oCCur/demo/TestFiles/test1/original.wav";
-    m_ModifiedAudioFile = "/home/sypai/co-oCCur/demo/TestFiles/test1/modified.wav";
-    m_OriginalSubtitleFile = "/home/sypai/co-oCCur/demo/TestFiles/test1/original.srt";
+    m_OriginalAudioFile = "/home/sypai/co-oCCur/demo/TestFiles/test3/original.wav";
+    m_ModifiedAudioFile = "/home/sypai/co-oCCur/demo/TestFiles/test3/modified.wav";
+    m_OriginalSubtitleFile = "/home/sypai/co-oCCur/demo/TestFiles/test3/original.srt";
 }
 
 co_oCCur::AlignFP::AlignFP(std::string &OriginalAudioFile, std::string &ModifiedAudioFile, std::string &OriginalSubtitleFile)
@@ -1089,6 +1089,39 @@ void co_oCCur::AlignFP::next(int i)
     m_Segments.emplace_back(Segment);
     Segment.clear();
 
+    std::vector<double> check_points(3);
+    std::vector<long int> new_points(3);
+    double duration = (m_Segments[i][1] - m_Segments[i][0])/ 1000.0;
+    double stPt = m_Segments[i][0]/1000.0;
+    check_points[0] = stPt + 0.25*duration;
+    check_points[1] = stPt + 0.5*duration;
+    check_points[2] = stPt + 0.75*duration;
+
+    Segment.emplace_back(2);
+    Segment.emplace_back(i+1);
+
+    for(int itr=0; itr<3; itr++)
+    {
+        curr_hash = hashes(check_points[itr]);
+        used_hash = next30(curr_hash);
+        fp1_seg = slice(curr_hash, used_hash);
+
+        flag = align_fingerprints(fp1_seg);
+        if(flag == 2)
+        {
+            new_points[itr] = (m_seconds[0] + 2.6)*1000;
+        }
+        else
+        {
+            new_points[itr] = check_points[itr];
+        }
+
+        Segment.emplace_back(check_points[itr]*1000);
+        Segment.emplace_back(new_points[itr]);
+    }
+
+    m_InsideSegment.emplace_back(Segment);
+
 }
 
 void co_oCCur::AlignFP::next_comm(int i)
@@ -1111,11 +1144,11 @@ void co_oCCur::AlignFP::next_comm(int i)
     double duration = 0.0;
     double check_time = m_secs - 30.0 + 360.0;
 
-    if(check_time > 3958.00)
+    if(check_time > 2098.00)
     {
         m_over = true;
         check_time -= 180;
-        while(check_time > 3958)
+        while(check_time > 2098)
         {
             check_time -= 180;
         }
@@ -1141,10 +1174,10 @@ void co_oCCur::AlignFP::next_comm(int i)
 
         duration = check_time - (m_seconds[0]) - 2.6 - a;
 
-        if(duration > 978)
+        if(duration > 500)
         {
             m_over = true;
-            duration = 3958.0 - m_Segments[i-1][1]/1000.0;
+            duration = 2098.0 - m_Segments[i-1][1]/1000.0;
         }
     }
 
@@ -1165,7 +1198,7 @@ void co_oCCur::AlignFP::segment_it()
      * 3 = no match
      * */
 
-    int i = 0;
+    int i = 0, j=0;
     ground_zero();
 
     std::cout << "Segment " << i+1 << ": ";
@@ -1180,6 +1213,10 @@ void co_oCCur::AlignFP::segment_it()
 
         std::cout << "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
+
+        std::cout << "Inside Segment " << i+1 << ": ";
+        printVector(m_InsideSegment[j]);
+        j++;
 
         i++;
 
