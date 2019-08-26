@@ -67,7 +67,7 @@ namespace Colors {
     LINUX_COLOR(red,        "\033[21;31m");
     LINUX_COLOR(yellow,     "\033[21;33m");
     LINUX_COLOR(lred,       "\033[1;31m");
-    LINUX_COLOR(white,      "\033[21;37m");
+    LINUX_COLOR(white,      "\033[0;37m");
     LINUX_COLOR(lyellow,    "\033[1;33m");
     LINUX_COLOR(lwhite,     "\033[1;37m");
     LINUX_COLOR(cdefault,   "\033[0;00m");
@@ -100,7 +100,7 @@ public:
             flush(); // flush immediately to prevent data loss.
         }
 
-        // Set thte minimum output level.
+        // Set the minimum output level.
         void setMinimumOutputLevel(Level level) noexcept {
             _minimumOutputLevel = level;
         }
@@ -199,7 +199,7 @@ inline Logger& getLogger() {
 // Information for tracing
 #define VERBOSE loggerstream(verbose)
 // Information for developers
-#define DEBUG loggerstream(debug)
+#define DEBUG0 loggerstream(debug)
 // Information for general users
 #define INFO loggerstream(info)
 // Problems that may affect facility, performance or stability but may not lead the program to crash immediately

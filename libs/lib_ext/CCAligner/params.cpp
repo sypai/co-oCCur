@@ -468,28 +468,28 @@ void Params::validateParams() {
         FATAL(InvalidParameters) << "Approx alligner doesn't work with text files";
 
     if (modelPath.empty())
-        DEBUG << "Using default Model Path.";
+        DEBUG0 << "Using default Model Path.";
 
     if (dictPath.empty())
-        DEBUG << "Using default Dictionary Path.";
+        DEBUG0 << "Using default Dictionary Path.";
 
     if (lmPath.empty())
-        DEBUG << "Using default LM Path.";
+        DEBUG0 << "Using default LM Path.";
 
     if (logPath.empty())
-        DEBUG << "Using default Log Path.";
+        DEBUG0 << "Using default Log Path.";
 
     if (fsgPath.empty())
-        DEBUG << "Using default FSG Path.";
+        DEBUG0 << "Using default FSG Path.";
 
     if (phoneticLmPath.empty())
-        DEBUG << "Using default Phonetic LM Path.";
+        DEBUG0 << "Using default Phonetic LM Path.";
   
     if (phonemeLogPath.empty())
-        DEBUG << "Using default Phoneme Log Path.";
+        DEBUG0 << "Using default Phoneme Log Path.";
 
     if (alignerLogPath.empty())
-        DEBUG << "Using default Aligner Log Path.";
+        DEBUG0 << "Using default Aligner Log Path.";
 
     if (readStream) {
         audioFileName = "stdin";

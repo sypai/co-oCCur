@@ -14,7 +14,7 @@
 #include <algorithm>
 #include "../../libs/lib_co-oCCur/SiftSRT/SiftSRT.h"
 #include "../utils/base64Strings.h"
-#include "../utils/align_the_fingerprints.h"
+//#include "../utils/align_the_fingerprints.h"
 #include "../utils/dactylogram.h"
 #include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 

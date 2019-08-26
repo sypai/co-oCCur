@@ -289,7 +289,7 @@ void co_oCCur::Dactylogram::igniteChromaprint()
 //
 //    int a = chromaprint_get_item_duration_ms(m_ctx);
 //
-//    DEBUG << a;
+//    DEBUG0 << a;
 
 }
 //void co_oCCur::Dactylogram::setFingerprints(std::vector<uint32_t> *array)
@@ -304,14 +304,14 @@ void co_oCCur::Dactylogram::igniteChromaprint()
 void co_oCCur::Dactylogram::collectFingerprints()
 //void co_oCCur::Dactylogram::collectFingerprints(std::vector<std::vector<uint32_t>> * array)
 {
-    DEBUG << "Initializing audiofingerprinting generation.\n";
+    DEBUG0 << "Initializing audiofingerprinting generation.\n";
     igniteChromaprint();
 
     m_NumberOfSecondsPrecise = (double)m_NumberOfSamples / SampleRate;
     m_NumberOfSeconds = m_NumberOfSamples / SampleRate;
     m_NumberOfMilliSeconds = (long int)(m_NumberOfSecondsPrecise * 1000);
 
-    DEBUG << "The audio is " << m_NumberOfSecondsPrecise << " seconds in length.";
+    DEBUG0 << "The audio is " << m_NumberOfSecondsPrecise << " seconds in length.";
 
     std::vector<uint32_t> AudioFingerprints;
 //    auto array = new std::vector<uint32_t>[m_NumberOfSeconds];
@@ -382,7 +382,7 @@ void co_oCCur::Dactylogram::collectFingerprints()
         }
     }
 
-    DEBUG << "Audiofingerprints successfully generated.";
+    DEBUG0 << "Audiofingerprints successfully generated.";
 
 //    for (int i = 0; i < m_NumberOfSeconds; i++)
 //    {

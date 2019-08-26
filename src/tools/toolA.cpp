@@ -74,11 +74,11 @@ void co_oCCur::ToolA::AFInserter()
     std::vector<SubtitleItem *> sub;
     sub = parser->getSubtitles();
 
-    DEBUG << "A Temporary file 'temp.srt' created." ;
+    DEBUG0 << "A Temporary file 'temp.srt' created." ;
     createTempSRT(sub);
 
-    DEBUG << "Enriched subtitle document created." ;
-//    DEBUG << m_OriginalSubtitleFile;
+    DEBUG0 << "Enriched subtitle document created." ;
+//    DEBUG0 << m_OriginalSubtitleFile;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);
@@ -122,7 +122,7 @@ void co_oCCur::ToolA:: generateFingerprints()
     m_FPTimestamps.emplace_back(FPTimestamp);
 
     std::cout << "Fingerprint anchors: " << std::endl;
-    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp_base64 << "\"}";
+    DEBUG0 << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp_base64 << "\"}";
 
     //Fingerprint2
     FPTimestamp = originalAudioLength_ms / 2;
@@ -140,7 +140,7 @@ void co_oCCur::ToolA:: generateFingerprints()
     m_Fingerprints.emplace_back(fp2_base64);
     m_FPTimestamps.emplace_back(FPTimestamp);
 
-    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp2_base64 << "\"}";
+    DEBUG0 << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp2_base64 << "\"}";
 
     //Fingerprint3
     FPTimestamp = (3 * originalAudioLength_ms) / 4;
@@ -158,7 +158,7 @@ void co_oCCur::ToolA:: generateFingerprints()
     m_Fingerprints.emplace_back(fp3_base64);
     m_FPTimestamps.emplace_back(FPTimestamp);
 
-    DEBUG << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp3_base64 << "\"}";
+    DEBUG0 << "{\"timestamp: " << FPTimestamp << R"(", "fingerprint: )" << fp3_base64 << "\"}";
 
     std::cout << "\nFingerprints Ready!!\n";
 
@@ -249,7 +249,7 @@ void co_oCCur::ToolA::adjust(long int delta)
     sub = parser->getSubtitles();
 
     std::cout << "SYNCHRONIZATION DONE\n" ;
-    DEBUG << "co-oCCur subtitle document created." ;
+    DEBUG0 << "co-oCCur subtitle document created." ;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);
@@ -262,9 +262,9 @@ void co_oCCur::ToolA::sync()
 //    auto delta = align();
 //    adjust(delta);
 
-    co_oCCur::AlignFP *co;
-    co = new co_oCCur::AlignFP();
-    co->brum_brum();
-    delete co;
+//    co_oCCur::AlignFP *co;
+//    co = new co_oCCur::AlignFP();
+//    co->brum_brum();
+//    delete co;
 }
 

@@ -989,9 +989,14 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
     std::vector<long int> comm_seg;
 //    std::vector<long int> cont_seg;
 //
-    for(const auto & Segment : Segments)
+//    for(const auto & Segment : Segments)
+//    {
+//            comm_seg.emplace_back(Segment[1]);
+//    }
+
+    for(int i = 0; i < Segments.size() - 1; i++)
     {
-            comm_seg.emplace_back(Segment[1]);
+        comm_seg.emplace_back(Segments[i][1]);
     }
 
     m_comm_seg = comm_seg;
@@ -1008,6 +1013,11 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
         long int mod_endTime = element->getEndTime();
 
         int index = getIndex(m_comm_seg, 0, m_comm_seg.size()-1, org_startTime) + 1;
+        if(index >= Segments.size())
+        {
+            break;
+        }
+
         if(Segments[index][2] == 0)
         {
             // Commercial segment
@@ -1035,7 +1045,6 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
 
 inline co_oCCurEditor::~co_oCCurEditor()
 {
-
 }
 
 // ===============================================================

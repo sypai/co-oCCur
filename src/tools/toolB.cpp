@@ -53,7 +53,7 @@ int co_oCCur::ToolB::createSubtitleString() {
 
     std::cout << "Trying to create Subtitle String..." << std::endl;
 
-    DEBUG << "Opening .srt file: " << m_OriginalSubtitleFile;
+    DEBUG0 << "Opening .srt file: " << m_OriginalSubtitleFile;
     SubtitleParserFactory *spf;
     spf = new SubtitleParserFactory(m_OriginalSubtitleFile);
 
@@ -70,16 +70,16 @@ int co_oCCur::ToolB::createSubtitleString() {
 
     if (parse->getTotalSubtitles() < 1)
     {
-        DEBUG << "Selected SRT file has no subtitles or the file doesn't exist.";
+        DEBUG0 << "Selected SRT file has no subtitles or the file doesn't exist.";
         return 0;
     }
 
-    DEBUG << "A Temporary file 'temp.srt' created.";
-    DEBUG << "Subtitles are being segmented into a " << m_SegmentWindow <<"ms window";
+    DEBUG0 << "A Temporary file 'temp.srt' created.";
+    DEBUG0 << "Subtitles are being segmented into a " << m_SegmentWindow <<"ms window";
     auto substring = parse->SpeechActivityDetection(m_SegmentWindow);
 
     m_SubtitleString = substring;
-    DEBUG << "Subtitle String created.\n";
+    DEBUG0 << "Subtitle String created.\n";
 
     std::cout << "Subtitle String: " << std::endl;
     int i = 0;
@@ -87,7 +87,7 @@ int co_oCCur::ToolB::createSubtitleString() {
     for (int j = 0; j < sub.at(sub.size() - 1)->getEndTime(); j += m_SegmentWindow)
     {
 //        std::cout << j << "ms : " << substring.at(i) << std::endl;
-        std::cout << m_SubtitleString[i];
+        std::cout << m_SubtitleString[i] << ",";
         i += 1;
     }
 
@@ -107,7 +107,7 @@ void co_oCCur::ToolB::createAudioString()
     std::cout << "\nAudio String: " << std::endl;
     audioString = runVAD(samples, m_SegmentWindow);
 
-    DEBUG << "\nAudio String Created\n";
+    DEBUG0 << "\nAudio String Created\n";
 
     m_AudioString = audioString;
 
@@ -141,8 +141,8 @@ void co_oCCur::ToolB::adjust(long int delta)
     std::vector<SubtitleItem *> sub;
     sub = parser->getSubtitles();
 
-    DEBUG << "SYNCHRONIZATION DONE" ;
-    DEBUG << "co-oCCur subtitle document created." ;
+    DEBUG0 << "SYNCHRONIZATION DONE" ;
+    DEBUG0 << "co-oCCur subtitle document created." ;
 
     co_oCCurEditor *edit;
     edit = new co_oCCurEditor(sub);

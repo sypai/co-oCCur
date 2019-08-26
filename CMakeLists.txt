@@ -235,15 +235,15 @@ set(SourceFiles
         src/utils/base64Strings.cpp
         src/utils/audioSegmentation.h
         src/utils/audioSegmentation.cpp
-#        src/tools/toolA.cpp
-#        src/tools/toolA.h
-#        src/tools/toolB.cpp
-#        src/tools/toolB.h
-#        src/co_occur.h
-#        src/co_occur.cpp
+        src/tools/toolA.cpp
+        src/tools/toolA.h
+        src/tools/toolB.cpp
+        src/tools/toolB.h
+        src/co_occur.h
+        src/co_occur.cpp
         src/utils/matchFP.cpp src/utils/matchFP.h src/utils/align_fp.cpp
         src/main.cpp
-        src/utils/rough.cpp src/utils/align_the_fingerprints.cpp src/utils/align_the_fingerprints.h)
+        src/utils/align_the_fingerprints.cpp src/utils/align_the_fingerprints.h src/utils/alignA.cpp src/utils/alignA.h src/utils/alignB.cpp src/utils/alignB.h src/utils/Rough.cpp)
 
 add_executable(co_oCCur ${SourceFiles})
 #target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})
