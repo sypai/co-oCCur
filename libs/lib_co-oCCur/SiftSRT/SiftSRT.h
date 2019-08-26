@@ -207,12 +207,12 @@ private:
     std::vector<SubtitleItem*> m_SubtitleItems;
     std::vector<long int> m_StartTimeArray;
     std::vector<long int> m_comm_seg;
-    std::vector<long int> m_cont_seg;
+    std::vector<long int> m_inside_seg;
 
 public:
     void EnrichSRT(std::string FileName, std::vector<std::string> fingerprints, std::vector<long int> FPTimestamps);
     void AdjustSRT(const std::string& FileName, long int delay, bool inc_or_dec);
-    void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments);
+    void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments, const std::vector<long int> &InsideSegment);
 
     explicit co_oCCurEditor(std::vector<SubtitleItem*> sub);
     ~co_oCCurEditor();
@@ -973,7 +973,7 @@ inline void co_oCCurEditor::AdjustSRT(const std::string& FileName, long int dela
 
 }
 
-inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vector<std::vector<long int> > &Segments)
+inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vector<std::vector<long int> > &Segments, const std::vector<long int> &InsideSegments)
 {
     std::vector<std::string> temp;
     temp = split(FileName, '.', temp);
@@ -987,16 +987,16 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
     writeToFile.open(co_oCCurFileName);
 
     std::vector<long int> comm_seg;
-//    std::vector<long int> cont_seg;
-//
-//    for(const auto & Segment : Segments)
-//    {
-//            comm_seg.emplace_back(Segment[1]);
-//    }
+    std::vector<long int> inside_seg;
 
     for(int i = 0; i < Segments.size() - 1; i++)
     {
         comm_seg.emplace_back(Segments[i][1]);
+    }
+
+    for(const auto & InsideSegment : InsideSegments)
+    {
+        inside_seg.emplace_back(InsideSegment);
     }
 
     m_comm_seg = comm_seg;
@@ -1005,14 +1005,13 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
     int subNo = 0;
     for (SubtitleItem* element : m_SubtitleItems)
     {
-//        int subNo = element->getSubtitleNumber();
-
         long int org_startTime = element->getStartTime();
         long int mod_startTime = element->getStartTime();
         long int org_endTime = element->getEndTime();
         long int mod_endTime = element->getEndTime();
 
         int index = getIndex(m_comm_seg, 0, m_comm_seg.size()-1, org_startTime) + 1;
+
         if(index >= Segments.size())
         {
             break;
@@ -1023,6 +1022,7 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
             // Commercial segment
             continue;
         }
+
         if(Segments[index][2] == 1)
         {
             auto delta = Segments[index - 1][1] - Segments[index - 1][0];
