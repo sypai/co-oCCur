@@ -94,9 +94,15 @@ void CLIFooter()
 
 int main(int argc, char *argv[])
 {
-    CLIHeader();
-    ParseOptions(argc, argv);
-    CLIFooter();
+//    CLIHeader();
+//    ParseOptions(argc, argv);
+//    CLIFooter();
+
+    co_oCCur::AlignFP *co;
+    co = new co_oCCur::AlignFP();
+    co->brum_brum();
+    delete co;
+
     return 0;
 }
 

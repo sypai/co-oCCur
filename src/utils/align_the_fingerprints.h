@@ -42,7 +42,8 @@ namespace co_oCCur {
         std::vector<std::vector<int> > m_regions;
         //        double m_score;
         std::vector<uint32_t> m_fp1, m_fp2;
-        float m_fp1_length, m_fp2_length;
+        double m_len1, m_len2;
+//        doubl m_fp1_length, m_fp2_length;
         std::vector<std::vector<long int> > m_Segments;
         std::vector<std::vector<long int> > m_InsideSegment;
         uint32_t m_curr_hash;

@@ -24,6 +24,7 @@
 #include <iterator>
 #include <cmath>
 #include <algorithm>
+#include <map>
 
 /* Split a string using the passed delimiter
  *
@@ -206,13 +207,12 @@ private:
     std::string m_FileName;
     std::vector<SubtitleItem*> m_SubtitleItems;
     std::vector<long int> m_StartTimeArray;
-    std::vector<long int> m_comm_seg;
-    std::vector<long int> m_inside_seg;
+//    std::vector<long int> m_comm_seg;
 
 public:
     void EnrichSRT(std::string FileName, std::vector<std::string> fingerprints, std::vector<long int> FPTimestamps);
     void AdjustSRT(const std::string& FileName, long int delay, bool inc_or_dec);
-    void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments, const std::vector<long int> &InsideSegment);
+    void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments,  const std::map<long int, long int > &Dactylogram);
 
     explicit co_oCCurEditor(std::vector<SubtitleItem*> sub);
     ~co_oCCurEditor();
@@ -973,7 +973,7 @@ inline void co_oCCurEditor::AdjustSRT(const std::string& FileName, long int dela
 
 }
 
-inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vector<std::vector<long int> > &Segments, const std::vector<long int> &InsideSegments)
+inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vector<std::vector<long int> > &Segments, const std::map<long int, long int > &Dactylogram)
 {
     std::vector<std::string> temp;
     temp = split(FileName, '.', temp);
@@ -986,54 +986,91 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
 
     writeToFile.open(co_oCCurFileName);
 
-    std::vector<long int> comm_seg;
-    std::vector<long int> inside_seg;
+    std::vector<long int> segments;
+    std::vector<long int> anchors;
 
     for(int i = 0; i < Segments.size() - 1; i++)
     {
-        comm_seg.emplace_back(Segments[i][1]);
+        segments.emplace_back(Segments[i][1]);
     }
 
-    for(const auto & InsideSegment : InsideSegments)
+
+    anchors.clear();
+
+    auto itr = Dactylogram.begin();
+    while(itr!=Dactylogram.end())
     {
-        inside_seg.emplace_back(InsideSegment);
+        anchors.emplace_back(itr->first);
+        itr++;
     }
+    itr = Dactylogram.begin();
 
-    m_comm_seg = comm_seg;
-//    m_cont_seg = cont_seg;
+    long int prev_org_startTime=0;
+    long int prev_mod_startTime=0;
+    int prev_anchor_index=0;
 
+    int first_anchor = 0;
     int subNo = 0;
     for (SubtitleItem* element : m_SubtitleItems)
     {
         long int org_startTime = element->getStartTime();
-        long int mod_startTime = element->getStartTime();
+        long int mod_startTime=0;
         long int org_endTime = element->getEndTime();
-        long int mod_endTime = element->getEndTime();
+        long int mod_endTime=0;
+        long int length = org_endTime - org_startTime;
 
-        int index = getIndex(m_comm_seg, 0, m_comm_seg.size()-1, org_startTime) + 1;
+        int segment_index = getIndex(segments, 0, segments.size()-1, org_startTime) + 1;
+        int anchor_index = getIndex(anchors, 0, anchors.size()-1, org_startTime) + 1;
 
-        if(index >= Segments.size())
+        if(segment_index >= Segments.size() || anchor_index >= anchors.size())
         {
             break;
         }
 
-        if(Segments[index][2] == 0)
+        if(Segments[segment_index][2] == 0)
         {
             // Commercial segment
             continue;
         }
 
-        if(Segments[index][2] == 1)
+        long int delta=0;
+
+        if(Segments[segment_index][2] == 1)
         {
-            auto delta = Segments[index - 1][1] - Segments[index - 1][0];
+            if(first_anchor == 0)
+            {
+                auto org_time = itr->first;
+                auto mod_time = itr->second;
+                delta = org_startTime - org_time;
+                mod_startTime = mod_time + delta;
+                first_anchor++;
+            }
+
+            else if(anchor_index != prev_anchor_index)
+            {
+                std::advance(itr, anchor_index);
+                auto org_time = itr->first;
+                auto mod_time = itr->second;
+                delta = org_startTime - org_time;
+                mod_startTime = mod_time + delta;
+                itr = Dactylogram.begin();
+            }
+
+            else
+            {
+                delta = org_startTime - prev_org_startTime;
+                mod_startTime = prev_mod_startTime + delta;
+            }
+
             subNo++;
-            mod_startTime = org_startTime - delta;
-            mod_endTime = org_endTime - delta;
+            prev_org_startTime = org_startTime;
+            prev_mod_startTime = mod_startTime;
+            prev_anchor_index = anchor_index;
         }
 
+        mod_endTime = mod_startTime + length;
         std::string StartTimeString = MSToSRTTime(mod_startTime);
         std::string EndTimeString = MSToSRTTime(mod_endTime);
-
         std::string payload = element->getText();
 
         writeToFile << subNo << std::endl;

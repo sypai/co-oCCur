@@ -87,7 +87,8 @@ int co_oCCur::ToolB::createSubtitleString() {
     for (int j = 0; j < sub.at(sub.size() - 1)->getEndTime(); j += m_SegmentWindow)
     {
 //        std::cout << j << "ms : " << substring.at(i) << std::endl;
-        std::cout << m_SubtitleString[i] << ",";
+//        std::cout << m_SubtitleString[i] << ",";
+        std::cout << m_SubtitleString[i];
         i += 1;
     }
 

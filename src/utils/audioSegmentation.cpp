@@ -38,7 +38,8 @@ std::vector<char> runVAD(std::vector<int16_t>& samples, int SegmentWindow)
     {
         int isActive = WebRtcVad_Process(vad, 16000, audioData, 160);
 
-        std::cout << isActive << ",";
+//        std::cout << isActive << ",";
+        std::cout << isActive ;
         audioString.emplace_back(isActive);
 
         audioData = audioData + 160;
