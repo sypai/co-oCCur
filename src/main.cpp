@@ -4,8 +4,6 @@
 * Github: https://github.com/sypai
 */
 #include "co_occur.h"
-#include "utils/align_the_fingerprints.h"
-//void align_fingerprints();
 
 void CLIHeader()
 {
@@ -94,14 +92,9 @@ void CLIFooter()
 
 int main(int argc, char *argv[])
 {
-//    CLIHeader();
-//    ParseOptions(argc, argv);
-//    CLIFooter();
-
-    co_oCCur::AlignFP *co;
-    co = new co_oCCur::AlignFP();
-    co->brum_brum();
-    delete co;
+    CLIHeader();
+    ParseOptions(argc, argv);
+    CLIFooter();
 
     return 0;
 }

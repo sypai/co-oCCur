@@ -1,4 +1,4 @@
-/*#include <iostream>
+/*
 * Author: Suyash Bajpai
 * Email: 7suyashbajpai@gmail.com
 * Github: https://github.com/sypai
@@ -40,10 +40,8 @@ namespace co_oCCur {
         std::vector<double> m_seconds;
         std::vector<double> m_score;
         std::vector<std::vector<int> > m_regions;
-        //        double m_score;
         std::vector<uint32_t> m_fp1, m_fp2;
         double m_len1, m_len2;
-//        doubl m_fp1_length, m_fp2_length;
         std::vector<std::vector<long int> > m_Segments;
         std::vector<std::vector<long int> > m_InsideSegment;
         uint32_t m_curr_hash;
@@ -97,7 +95,7 @@ namespace co_oCCur {
         AlignFP(std::string &OriginalAudioFile, std::string &ModifiedAudioFile, std::string &OriginalSubtitleFile);
 
         void brum_brum();
-        ~AlignFP(void);
+        ~AlignFP();
     };
 }
 #endif //CO_OCCUR_ALIGN_THE_FINGERPRINTS_H

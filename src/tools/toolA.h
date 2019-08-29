@@ -12,13 +12,8 @@
 #include <utility>
 #include <unistd.h>
 #include <algorithm>
-#include "../../libs/lib_co-oCCur/SiftSRT/SiftSRT.h"
-#include "../utils/base64Strings.h"
-//#include "../utils/align_the_fingerprints.h"
-#include "../utils/dactylogram.h"
-#include "../../libs/lib_ext/CCAligner/read_wav_file.h"
 
-//#include "../../libs/lib_ext/CCAligner/"
+#include "../utils/align_the_fingerprints.h"
 
 namespace co_oCCur {
 
@@ -38,14 +33,6 @@ namespace co_oCCur {
         ToolA(std::string OriginalAudioFile, std::string ModifiedAudioFile, std::string OriginalSubtitleFile);
         void sync();
         ~ToolA();
-
-    private:
-        void createTempSRT(const std::vector<SubtitleItem*>& sub);
-        void generateFingerprints();
-        void AFInserter();
-        bool matches(int anchor, std::vector<uint32_t> testFP);
-        void adjust(long int delta);
-        long int align();
     };
 
 
