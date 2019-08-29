@@ -3,6 +3,21 @@ demo/TestFiles/
 # Created by https://www.gitignore.io/api/cmake
 # Edit at https://www.gitignore.io/?templates=cmake
 
+temp.srt
+
+CMakeFiles
+cmake_install.cmake
+co_oCCur
+Makefile
+
+co_oCCur-*.srt
+
+install/co_oCCur
+install/libccaligner.a
+install/libchromaprint.a
+install/libwebrtc.a
+install/temp.srt
+
 ### CMake ###
 CMakeLists.txt.user
 CMakeCache.txt
@@ -199,13 +214,4 @@ modules.xml
 *.exe
 *.out
 *.app
-
-temp.srt
-
-CMakeFiles
-cmake_install.cmake
-co_oCCur
-Makefile
-
-co_oCCur-*.srt
 

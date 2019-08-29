@@ -994,7 +994,6 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
         segments.emplace_back(Segments[i][1]);
     }
 
-
     anchors.clear();
 
     auto itr = Dactylogram.begin();
@@ -1022,7 +1021,7 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
         int segment_index = getIndex(segments, 0, segments.size()-1, org_startTime) + 1;
         int anchor_index = getIndex(anchors, 0, anchors.size()-1, org_startTime) + 1;
 
-        if(segment_index >= Segments.size() || anchor_index >= anchors.size())
+        if(segment_index >= Segments.size() || anchor_index > anchors.size() + 1)
         {
             break;
         }
@@ -1048,7 +1047,7 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
 
             else if(anchor_index != prev_anchor_index)
             {
-                std::advance(itr, anchor_index);
+                std::advance(itr, anchor_index-1);
                 auto org_time = itr->first;
                 auto mod_time = itr->second;
                 delta = org_startTime - org_time;

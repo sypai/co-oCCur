@@ -24,7 +24,7 @@ namespace co_oCCur {
         std::string m_ModifiedAudioFile;
         std::string m_OriginalSubtitleFile;
 
-        int m_SegmentWindow = 10;
+        int m_SegmentWindow = 30;
         std::vector<char> m_AudioString;
         std::vector<char> m_SubtitleString;
 

@@ -377,7 +377,7 @@ co_oCCur::AlignFP::AlignFP()
 {
     m_OriginalAudioFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/original.wav";
     m_ModifiedAudioFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/modified.wav";
-    m_OriginalSubtitleFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/original.srt";
+    m_OriginalSubtitleFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/americans.srt";
 }
 
 co_oCCur::AlignFP::AlignFP(std::string &OriginalAudioFile, std::string &ModifiedAudioFile, std::string &OriginalSubtitleFile)
