@@ -325,7 +325,7 @@ std::vector<uint32_t > co_oCCur::AlignFP::slice(int lb, int ub)
     {
         if(i >= size)
         {
-            return {0};
+            return slice(lb, size);
         }
         tempFP.emplace_back(m_fp1.at(i));
     }
@@ -374,11 +374,7 @@ bool co_oCCur::AlignFP::freqNot1(const std::vector<double> &InVector)
 }
 
 co_oCCur::AlignFP::AlignFP()
-{
-    m_OriginalAudioFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/original.wav";
-    m_ModifiedAudioFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/modified.wav";
-    m_OriginalSubtitleFile = "/home/sypai/gsocdev3.ccextractor.org/SampleRepository/TestFiles/test4/americans.srt";
-}
+= default;
 
 co_oCCur::AlignFP::AlignFP(std::string &OriginalAudioFile, std::string &ModifiedAudioFile, std::string &OriginalSubtitleFile)
 {
@@ -387,15 +383,21 @@ co_oCCur::AlignFP::AlignFP(std::string &OriginalAudioFile, std::string &Modified
     m_OriginalSubtitleFile = OriginalSubtitleFile;
 }
 
-
 int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
 {
     std::vector<uint32_t > fp1_seg, fp2_seg;
 //    int n = 221;
 
     fp1_seg = slice(hashes(seconds), next30(hashes(seconds)));
-    fp2_seg = slice2(offset, offset+221);
 
+    if(offset > 0) {
+        fp2_seg = slice2(offset, offset + 221);
+    }
+
+    else if(offset < 0){
+        fp1_seg = slice(-offset, offset+221);
+        fp2_seg = m_fp2;
+    }
     size_t size1 = fp1_seg.size();
     size_t size2 = fp2_seg.size();
 
@@ -404,57 +406,9 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
     fp1_seg = sliceIt0(fp1_seg, 0, n);
     fp2_seg = sliceIt0(fp2_seg, 0, n);
 
-//    if(offset > 0)
-//    {
-//        fp2_seg = slice2(offset, m_fp2.size());
-//        m_fp2 =fp2_seg;
-//    }
-
-//    int n = fp1_seg.size() < fp2_seg.size() ? fp1_seg.size(): fp2_seg.size();
-//    fp1_seg = slice(0, n);
-
-//    printVector(fp2_seg);
-//    printVector(fp1_seg);
-
-
-
     nc::NdArray<uint32_t > fp_diff, fp_new;
     auto afp1 = nc::NdArray<uint32_t > (fp2_seg);
     auto afp2 = nc::NdArray<uint32_t > (fp1_seg);
-
-//    nc::append(fp_new, fp_diff, nc::Axis::ROW);
-
-//    std::cout<< fp_diff.shape();
-//
-//    fp_diff.reshape(fp_diff.numCols(), fp_diff.numRows());
-//
-//    std::cout<< fp_diff.shape();
-
-//    std::vector<std::vector<uint32_t > > b;
-//    std::vector<uint32_t > a;
-//    for(auto &i : fp_diff)
-//    {
-//        std::cout << i << ",";
-////      nc::append(fp_new, a, nc::Axis::ROW);
-////        a.clear();
-//
-//    }
-
-//    printVector(b);
-
-//    auto x = nc::NdArray<uint32_t >({1,          2,          4,          8,         16,
-//                                             32,         64,        128,        256,        512,
-//                                             1024,       2048,       4096,       8192,      16384,
-//                                             32768,      65536,     131072,     262144,     524288,
-//                                             1048576,    2097152,    4194304,    8388608,   16777216,
-//                                             33554432,   67108864,  134217728,  268435456,  536870912,
-//                                             1073741824, 2147483648});
-////    auto y = nc::bitwise_and(fp_diff, x);
-//
-//    for(auto &i : y)
-//    {
-//        std::cout << i << ",";
-//    }
 
     std::vector<uint32_t > x = arange1(0, 32);
     std::vector<uint32_t > y = {1,          2,          4,          8,         16,
@@ -468,7 +422,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
     std::vector<std::vector<uint32_t > > z;
     fp_diff = nc::bitwise_xor(afp1, afp2);
 
-//    std::cout << "fp_diff \n";
     for(auto &i: fp_diff)
     {
         a_.emplace_back(i);
@@ -476,36 +429,20 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
         a_.clear();
     }
 
-//    printVector(z);
-//    std::cout << "\n\n\n\n\nand \n";
     std::vector<std::vector<uint32_t > > a, img;
     bitwise_and(&a, z, y);
 
-    for(const auto& i : a)
-    {
-//        printVector(i);
-    }
-
-//    std::cout << "\n\n\n\n\n a\n";
-
-//    0,     0,     0,     0,     0,     0,     0,     0,     0,
-//           0,     0,  2048,     0,     0,     0,     0, 65536,     0,
-//           0,     0,     0,     0,     0,     0,     0,     0,     0,
-//           0,     0,     0,     0,     0
-    right_shift(&img, a, x);
-
-//    nc::NdArray<uint32_t > img_nc;
-//    img_nc
-//    for(const auto& i : img)
+//    for(const auto& i : a)
 //    {
-//        auto img_a = nc::NdArray<uint32_t >(i);
-//        img_nc = nc::append(img_nc, img_a, nc::Axis::ROW);
+////        printVector(i);
 //    }
 
-    for(const auto& i : img)
-    {
-//        printVector(i);
-    }
+    right_shift(&img, a, x);
+
+//    for(const auto& i : img)
+//    {
+////        printVector(i);
+//    }
 
     std::vector<uint32_t > ber;
     sumIt(&ber, img);
@@ -567,7 +504,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
 //        std::cout << i << ", ";
     }
 
-
     std::vector<double> gradient(gradient1.size());
     chromaprint::Gradient(gradient1.begin(), gradient1.end(), gradient.begin());
 
@@ -593,20 +529,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
             }
         }
     }
-
-//    std::cout << "\n\n Peaks" <<gradient1[62];
-//    printVector(gradient1_peaks);
-
-//    nc::NdArray<int > edges = { 0,  4,  35,  62,  95, 130,  155, 186, 209, 221};
-
-//    auto diff0 = nc::diff(edges) / 2;
-
-////    std::cout<<diff0.size();
-
-//    for(auto i : diff0)
-//    {
-////        std::cout << i << ", ";
-//    }
 
     std::vector<int> edges;
     cat(&edges, gradient1_peaks, n);
@@ -656,8 +578,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
         r[i] = std::abs(r[i]);
     }
 
-
-
     std::vector<double> mid_gradient;
     DivideThem(&mid_gradient, r, s);
 
@@ -665,14 +585,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
 //    printVector(mid_gradient);
 
     std::vector<int> top_peaks;
-//    for(auto i: mid_gradient)
-//    {
-//        if(i > 1.5)
-//        {
-//            top_peaks.emplace_back(gradient1_peaks.at(i));
-//        }
-//    }
-
 
     for(int i = 0; i < mid_gradient.size(); i++)
     {
@@ -684,7 +596,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
     }
 //    std::cout << "\n\n Living the dream!!\n ";
 //    printVector(top_peaks);
-
 
     edges.clear();
     cat(&edges, top_peaks, n);
@@ -701,8 +612,7 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
         m_regions.emplace_back(seg);
     }
 
-//    std::vector<double> scores;
-    for(auto & segment : m_regions)
+   for(auto & segment : m_regions)
     {
         double score;
         auto s1 = sliceIt(ber2_temp, segment[0], segment[1]);
@@ -716,7 +626,6 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
         score = mean(temp1);
         m_score.emplace_back(score);
     }
-//    m_score = mean(temp1);
 
 //    printVector(edges);
     if(local){
@@ -891,11 +800,18 @@ int co_oCCur::AlignFP::align_fingerprints(const std::vector<uint32_t > &fp1_seg,
         }
     }
 
+    if(m_Segments.empty())
+    {
+        if(m_seconds[0] > 100) {
+            return 3;
+        }
+    }
+
     if(!(m_size > 0 && m_size < 10))
     {
         if(!m_Segments.empty()) {
             matching_regions(m_secs, m_offsets_peaks[0]);
-            if (m_score[0] < 10.0) {
+            if (m_score[0] < 12.0) {
                 return 2;
             }
         }
@@ -905,12 +821,12 @@ int co_oCCur::AlignFP::align_fingerprints(const std::vector<uint32_t > &fp1_seg,
     else
     {
         auto delta = (m_seconds[0]) + 2.6;
-        if(! (delta > -0.1 && delta < 0.1))
+        if(! (delta > -0.2 && delta < 0.2))
         {
             if(freqNot1(m_counts_peaks))
             {
                 if(matching_regions(m_secs, m_offsets_peaks[0], true) > 25) {
-                    if (m_score[0] > 10.0) {
+                    if (m_score[0] > 12.0) {
                         return 3;
                     }
                 }
@@ -944,13 +860,13 @@ void co_oCCur::AlignFP::ground_zero()
     {
         uint32_t used_hash = next15(curr_hash);  // FIRST 15 seconds
         secs += 15;
+        m_secs = secs;
         fp1_seg = slice(curr_hash, used_hash);
 
         flag = align_fingerprints(fp1_seg);
 
         if(flag == 3) // NO MATCH
         {
-//            real_hash += used_hash;
             curr_hash = hashes(secs);
             used_hash = next30(curr_hash);
             fp1_seg = slice(curr_hash, used_hash);
@@ -959,24 +875,22 @@ void co_oCCur::AlignFP::ground_zero()
 
             if (flag == 2) // LOCAL MATCH
             {
-
                 while(flag != 1)
                 {
                     delta = (m_seconds[0]) + 2.6;
                     aligned_secs = secs - delta;
-//                    std::cout << delta << ", " << aligned_secs << std::endl;
 
-                    if (!MATCH(delta)) {
+                    if (!MATCH(delta))
+                    {
                         flag = 2;
                         curr_hash = hashes(aligned_secs);
-//                        real_hash = curr_hash;
                         used_hash = next30(curr_hash);
                         fp1_seg = slice(curr_hash, used_hash);
 
                         align_fingerprints(fp1_seg);
                         prev_aligned_secs = aligned_secs;
-//                        delta = (m_seconds[0) + 2.6;
                     }
+
                     aligned_ms = (long int) (prev_aligned_secs * 1000.0);
 
                     if(MATCH(delta))
@@ -1001,20 +915,16 @@ void co_oCCur::AlignFP::ground_zero()
             {
                 delta = (m_seconds[0]) + 2.6;
                 aligned_secs = secs - delta;
-//                std::cout << delta << ", " << aligned_secs << std::endl;
-
 
                 if (!MATCH(delta)) {
                     flag = 2;
                     curr_hash = hashes(aligned_secs);
-//                    real_hash = curr_hash;
                     used_hash = next30(curr_hash);
                     fp1_seg = slice(curr_hash, used_hash);
 
                     align_fingerprints(fp1_seg);
                     prev_aligned_secs = aligned_secs;
-//                        delta = (m_seconds[0) + 2.6;
-                }
+               }
                 aligned_ms = (long int) (prev_aligned_secs * 1000.0);
 
                 if(MATCH(delta))
@@ -1113,7 +1023,7 @@ void co_oCCur::AlignFP::next(int i)
         }
         else
         {
-            new_points[itr] = check_points[itr];
+            new_points[itr] = check_points[itr]*1000;
         }
 
         Segment.emplace_back(check_points[itr]*1000);
@@ -1121,7 +1031,6 @@ void co_oCCur::AlignFP::next(int i)
     }
 
     m_InsideSegment.emplace_back(Segment);
-
 }
 
 void co_oCCur::AlignFP::next_comm(int i)
@@ -1201,14 +1110,25 @@ void co_oCCur::AlignFP::segment_it()
     int i = 0, j=0;
     ground_zero();
 
-    std::cout << "Segment " << i+1 << ": ";
-    printVector(m_Segments[i]);
+    if(!m_Segments.empty())
+    {
+        std::cout << "Segment " << i+1 << ": ";
+        printVector(m_Segments[i]);
+    }
+
+
 
     while(m_curr_hash <= m_fp1.size() && !m_over)
     {
         i++;
 
-        m_secs = (m_Segments[i-1][1]) / 1000.0;
+        if(m_Segments.empty()){
+            i = 0;
+            m_secs = 0;
+        }
+        else {
+            m_secs = (m_Segments[i - 1][1]) / 1000.0;
+        }
         next(i);
 
         std::cout << "Segment " << i+1 << ": ";
@@ -1216,9 +1136,8 @@ void co_oCCur::AlignFP::segment_it()
 
         std::cout << "Inside Segment " << i+1 << ": ";
         printVector(m_InsideSegment[j]);
-        j++;
 
-        i++;
+        j++;i++;
 
         m_secs = (m_Segments[i-1][1]) / 1000.0;
         next_comm(i);
@@ -1236,7 +1155,6 @@ void co_oCCur::AlignFP::brum_brum()
     org = new co_oCCur::Dactylogram(m_OriginalAudioFile);
     org->collectFingerprints();
     m_fp1 = org->getAllFingerprints();
-
 
     co_oCCur::Dactylogram *mod;
     mod = new co_oCCur::Dactylogram(m_ModifiedAudioFile);

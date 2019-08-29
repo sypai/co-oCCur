@@ -241,9 +241,8 @@ set(SourceFiles
         src/tools/toolB.h
         src/co_occur.h
         src/co_occur.cpp
-        src/utils/matchFP.cpp src/utils/matchFP.h
         src/main.cpp
-        src/utils/align_the_fingerprints.cpp src/utils/align_the_fingerprints.h src/utils/Rough.cpp)
+        src/utils/align_the_fingerprints.cpp src/utils/align_the_fingerprints.h)
 
 add_executable(co_oCCur ${SourceFiles})
 #target_link_libraries(co_oCCur webrtc chromaprint ccaligner ${EXTRA_FLAGS})

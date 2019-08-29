@@ -34,8 +34,6 @@ const static int MaxChunkDuration = 1;
 
 namespace co_oCCur{
 
-    #define FIXED_FLOAT(x) std::fixed << std::setprecision(2) << (x);
-
     class Dactylogram
     {
     private:
@@ -55,20 +53,15 @@ namespace co_oCCur{
         Dactylogram(std::string FileName);
         ~Dactylogram();
         void collectFingerprints();
-//        void collectFingerprints(std::vector<std::vector<uint32_t>>* array);
+
         std::vector<std::vector<uint32_t> > getFingerprints() const ;
         std::vector<uint32_t> getAllFingerprints() const ;
-//        void setFingerprints(std::vector<uint32_t > * array);
         double getAudioLength_secs() const ;
         long int getAudioLength_ms() const ;
 
     private:
         void readAudio();
         void igniteChromaprint();
-//        double GetCurrentTimestamp();
-//        void read(const int16_t **data, size_t *size);
-//        void printResult(bool first, double timestamp, double duration);
-
     };
 } // namespace co_oCCur
 

@@ -24,10 +24,6 @@ namespace co_oCCur {
         std::string m_ModifiedAudioFile;
         std::string m_OriginalSubtitleFile;
 
-        std::vector<std::string> m_Fingerprints;
-        std::vector<std::vector<uint32_t>> m_Fingerprints_raw;
-        std::vector<long int> m_FPTimestamps;
-
     public:
         ToolA();
         ToolA(std::string OriginalAudioFile, std::string ModifiedAudioFile, std::string OriginalSubtitleFile);
