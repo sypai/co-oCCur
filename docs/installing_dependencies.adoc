@@ -1,6 +1,6 @@
 = Installing Dependencies
 
-I have tried to keep the dependencies as less as possible. The project
+I have tried to keep very less dependencies. The project
 **co_oCCur** uses three libraries which are statically linked.
 It has just a couple of dependencies which makes using it extremely easy.
 Once the requirements are met, using the tool is trivial.

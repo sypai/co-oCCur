@@ -21,7 +21,7 @@
 
 1. Clone the repository from Github using :
 
-    git clone https://www.github.com/saurabhshri/CCAligner.git
+    git clone https://www.github.com/sypai/co-oCCur.git
 
 2. Make sure dependencies are installed. The instructions are located in `/docs/installing_dependencies.adoc`.
 

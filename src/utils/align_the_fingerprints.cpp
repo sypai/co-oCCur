@@ -395,7 +395,7 @@ int co_oCCur::AlignFP::matching_regions(double seconds, int offset, bool local)
     }
 
     else if(offset < 0){
-        fp1_seg = slice(-offset, offset+221);
+        fp1_seg = slice(-offset, -offset+221);
         fp2_seg = m_fp2;
     }
     size_t size1 = fp1_seg.size();
@@ -811,7 +811,7 @@ int co_oCCur::AlignFP::align_fingerprints(const std::vector<uint32_t > &fp1_seg,
     {
         if(!m_Segments.empty()) {
             matching_regions(m_secs, m_offsets_peaks[0]);
-            if (m_score[0] < 12.0) {
+            if (m_score[0] < 15.0) {
                 return 2;
             }
         }
@@ -821,7 +821,7 @@ int co_oCCur::AlignFP::align_fingerprints(const std::vector<uint32_t > &fp1_seg,
     else
     {
         auto delta = (m_seconds[0]) + 2.6;
-        if(! (delta > -0.2 && delta < 0.2))
+        if(! (delta > -0.1 && delta < 0.1))
         {
             if(freqNot1(m_counts_peaks))
             {
@@ -906,6 +906,14 @@ void co_oCCur::AlignFP::ground_zero()
                         curr_hash = hashes(secs);
                     }
                 }
+            }
+
+            else if(flag == 1)
+            {
+                Segment.emplace_back(0);
+                Segment.emplace_back(15000);
+                Segment.emplace_back(0);
+                m_Segments.emplace_back(Segment);
             }
         }
 
@@ -1116,8 +1124,6 @@ void co_oCCur::AlignFP::segment_it()
         printVector(m_Segments[i]);
     }
 
-
-
     while(m_curr_hash <= m_fp1.size() && !m_over)
     {
         i++;
@@ -1137,6 +1143,10 @@ void co_oCCur::AlignFP::segment_it()
         std::cout << "Inside Segment " << i+1 << ": ";
         printVector(m_InsideSegment[j]);
 
+        if(m_Segments[i][1] < m_Segments[i][0])
+        {
+            break;
+        }
         j++;i++;
 
         m_secs = (m_Segments[i-1][1]) / 1000.0;
@@ -1144,6 +1154,11 @@ void co_oCCur::AlignFP::segment_it()
 
         std::cout << "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
+
+        if(m_Segments[i][1] < m_Segments[i][0])
+        {
+            break;
+        }
 
         m_curr_hash = hashes(m_secs);
     }
