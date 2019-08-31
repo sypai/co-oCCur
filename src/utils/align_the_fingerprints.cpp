@@ -1137,6 +1137,7 @@ void co_oCCur::AlignFP::segment_it()
         }
         next(i);
 
+        std::cout << "\n";
         DEBUG0<< "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
 
@@ -1152,6 +1153,7 @@ void co_oCCur::AlignFP::segment_it()
         m_secs = (m_Segments[i-1][1]) / 1000.0;
         next_comm(i);
 
+        std::cout << "\n";
         DEBUG0<< "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
 
