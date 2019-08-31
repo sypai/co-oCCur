@@ -1120,7 +1120,7 @@ void co_oCCur::AlignFP::segment_it()
 
     if(!m_Segments.empty())
     {
-        std::cout << "Segment " << i+1 << ": ";
+        DEBUG0<< "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
     }
 
@@ -1137,10 +1137,10 @@ void co_oCCur::AlignFP::segment_it()
         }
         next(i);
 
-        std::cout << "Segment " << i+1 << ": ";
+        DEBUG0<< "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
 
-        std::cout << "Inside Segment " << i+1 << ": ";
+        DEBUG0<< "Inside Segment " << i+1 << ": ";
         printVector(m_InsideSegment[j]);
 
         if(m_Segments[i][1] < m_Segments[i][0])
@@ -1152,7 +1152,7 @@ void co_oCCur::AlignFP::segment_it()
         m_secs = (m_Segments[i-1][1]) / 1000.0;
         next_comm(i);
 
-        std::cout << "Segment " << i+1 << ": ";
+        DEBUG0<< "Segment " << i+1 << ": ";
         printVector(m_Segments[i]);
 
         if(m_Segments[i][1] < m_Segments[i][0])
@@ -1179,6 +1179,7 @@ void co_oCCur::AlignFP::brum_brum()
     m_len1 = m_fp1.size() * chroma_factor;
     m_len2 = m_fp2.size() * chroma_factor;
 
+    DEBUG0 << "\n Finding the different segments...\n";
     segment_it();
 
     delete org;
@@ -1232,6 +1233,10 @@ void co_oCCur::AlignFP::brum_brum()
     edit = new co_oCCurEditor(sub);
 
     edit->Adjust(m_OriginalSubtitleFile, m_Segments, Dactylogram);
+
+    auto file = edit->getOutFile();
+
+    DEBUG0<< "OUTPUT SUBTITLE FILE: " << file;
 
     delete spf;
     delete edit;

@@ -205,15 +205,17 @@ class co_oCCurEditor : public SubtitleItem
 {
 private:
     std::string m_FileName;
+    std::string m_FileNameOut;
     std::vector<SubtitleItem*> m_SubtitleItems;
     std::vector<long int> m_StartTimeArray;
+//    std::vector<long int> m_StartTimeArray;
 //    std::vector<long int> m_comm_seg;
 
 public:
     void EnrichSRT(std::string FileName, std::vector<std::string> fingerprints, std::vector<long int> FPTimestamps);
     void AdjustSRT(const std::string& FileName, long int delay, bool inc_or_dec);
     void Adjust(const std::string& FileName, const std::vector<std::vector<long int> > &Segments,  const std::map<long int, long int > &Dactylogram);
-
+    std::string getOutFile();
     explicit co_oCCurEditor(std::vector<SubtitleItem*> sub);
     ~co_oCCurEditor();
 
@@ -983,7 +985,7 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
     std::string co_oCCurFileName = "../co_oCCur-" + temp1[temp1.size() - 1];
 
     std::ofstream writeToFile;
-
+    m_FileNameOut = co_oCCurFileName;
     writeToFile.open(co_oCCurFileName);
 
     std::vector<long int> segments;
@@ -1079,6 +1081,10 @@ inline void co_oCCurEditor::Adjust(const std::string &FileName, const std::vecto
     }
 }
 
+inline std::string co_oCCurEditor::getOutFile()
+{
+    return m_FileNameOut;
+}
 inline co_oCCurEditor::~co_oCCurEditor()
 {
 }

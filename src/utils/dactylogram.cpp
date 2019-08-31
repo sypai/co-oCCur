@@ -127,7 +127,7 @@ void co_oCCur::Dactylogram::collectFingerprints()
             }
         }
     }
-    DEBUG0 << "Audiofingerprints successfully generated.";
+    DEBUG0 << "Audiofingerprints successfully generated.\n";
 }
 
 std::vector<std::vector<uint32_t> > co_oCCur::Dactylogram::getFingerprints() const
